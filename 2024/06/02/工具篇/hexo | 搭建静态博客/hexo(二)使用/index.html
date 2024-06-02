@@ -28,7 +28,7 @@
 <meta property="og:description" content="参考:hexo官方Documentation&gt;   1. setup123hexo init &lt;folder&gt;cd &lt;folder&gt;npm install Once initialized, here’s what your project folder will look like: 1234567891011.├── _config.landscape.yml├─">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-06-02T02:11:58.919Z">
-<meta property="article:modified_time" content="2024-06-02T02:27:57.859Z">
+<meta property="article:modified_time" content="2024-06-02T12:27:26.370Z">
 <meta property="article:author" content="fengren123">
 <meta property="article:tag" content="教程">
 <meta property="article:tag" content="hexo">
@@ -187,7 +187,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-06-02 10:11:58 / Modified: 10:27:57" itemprop="dateCreated datePublished" datetime="2024-06-02T10:11:58+08:00">2024-06-02</time>
+              <time title="Created: 2024-06-02 10:11:58 / Modified: 20:27:26" itemprop="dateCreated datePublished" datetime="2024-06-02T10:11:58+08:00">2024-06-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -219,7 +219,32 @@
 <p>Once initialized, here’s what your project folder will look like:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.landscape.yml</span><br><span class="line">├── _config.yml | 大部分配置在这里修改</span><br><span class="line">├── db.json</span><br><span class="line">├── node_modules</span><br><span class="line">├── package-lock.json</span><br><span class="line">├── package.json</span><br><span class="line">├── public</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source | .md文件    </span><br><span class="line">└── themes | 配合next主题,优化配置</span><br></pre></td></tr></table></figure>
 
-<h1 id="2-configuration"><a href="#2-configuration" class="headerlink" title="2. configuration"></a>2. configuration</h1><h2 id="2-1-站点config"><a href="#2-1-站点config" class="headerlink" title="2.1 站点config"></a>2.1 站点config</h2><h2 id="2-1-文章config"><a href="#2-1-文章config" class="headerlink" title="2.1 文章config"></a>2.1 文章config</h2>
+<h1 id="2-github-io作为网页"><a href="#2-github-io作为网页" class="headerlink" title="2. github.io作为网页"></a>2. github.io作为网页</h1><ol>
+<li>配置github本地账户(具体的查Git相关笔记).<code>ssh -T git@github.com</code>有响应就是成功</li>
+<li>修改根目录下_config.yml中的几项<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">https://fengren123.github.io/</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">next</span> <span class="comment"># 需要先安装next主题</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">git</span> <span class="comment"># 不要使用github</span></span><br><span class="line">    <span class="attr">repo:</span> <span class="string">git@github.com:fengren123/fengren123.github.io.git</span> <span class="comment"># 使用ssh连接</span></span><br><span class="line">    <span class="attr">branch:</span> <span class="string">main</span> <span class="comment"># 默认main分支</span></span><br><span class="line">    <span class="attr">message:</span> <span class="string">冯梓效add</span> <span class="string">a</span> <span class="string">new</span> <span class="string">blog</span> <span class="comment"># 自动部署commit备注，可不填</span></span><br></pre></td></tr></table></figure></li>
+<li>在Node.js项目(即folder)中安装hexo-deployer-git,这是hexo的git部署插件 <blockquote>
+<p>npm install hexo-deployer-git –save</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="3-configuration"><a href="#3-configuration" class="headerlink" title="3. configuration"></a>3. configuration</h1><h2 id="3-1-主题替换为next"><a href="#3-1-主题替换为next" class="headerlink" title="3.1 主题替换为next"></a>3.1 主题替换为next</h2><ol>
+<li>下载next主题<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/next-theme/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></li>
+<li>在_config.yml中修改为<code>theme: next</code>即可</li>
+<li>下载后现在一共有两个config文件:一个是根目录下的&#x2F;_config.yml称为站点配置文件,另一个一个是&#x2F;themes&#x2F;next&#x2F;_config.yml称为主题配置文件</li>
+</ol>
+<h2 id="3-2-修改”站点配置文件”"><a href="#3-2-修改”站点配置文件”" class="headerlink" title="3.2 修改”站点配置文件”"></a>3.2 修改”站点配置文件”</h2><p>在_config.yml中可以对网页默认配置和站点配置进行设置,<a target="_blank" rel="noopener" href="https://hexo.io/docs/configuration.html">配置目录</a>.比较重要的配置(github配置的忽略):</p>
+<ul>
+<li>title,author,description:网页基础信息</li>
+<li>post_asset_folder:启用资源文件夹,可以存.md文件需要的png等</li>
+</ul>
+<h2 id="3-3-修改”主题配置文件”"><a href="#3-3-修改”主题配置文件”" class="headerlink" title="3.3 修改”主题配置文件”"></a>3.3 修改”主题配置文件”</h2><ol>
+<li>修改文件<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">scheme:</span> <span class="string">Gemini</span></span><br><span class="line"><span class="attr">darkmode:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span> <span class="comment"># 开启标签页</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span> <span class="comment"># 开启分类页</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br></pre></td></tr></table></figure></li>
+<li>手动新建”标签页”和”分类页”,才能在点击”tags”等时知道进入什么对应的页面<blockquote>
+<p>hexo new page “categories”<br>建立&#x2F;categories&#x2F;index.md,并修改内容为</p>
+</blockquote>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line"><span class="section">type: &quot;categories&quot;</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+
     </div>
 
     
@@ -242,7 +267,10 @@
     <a href="/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20%7C%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%B8%80)%E5%AE%89%E8%A3%85/" rel="prev" title="hexo(一)安装">
       <i class="fa fa-chevron-left"></i> hexo(一)安装
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/Git/123/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -301,7 +329,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-setup"><span class="nav-number">1.</span> <span class="nav-text">1. setup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-configuration"><span class="nav-number">2.</span> <span class="nav-text">2. configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E7%AB%99%E7%82%B9config"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 站点config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E6%96%87%E7%AB%A0config"><span class="nav-number">2.2.</span> <span class="nav-text">2.1 文章config</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-setup"><span class="nav-number">1.</span> <span class="nav-text">1. setup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-github-io%E4%BD%9C%E4%B8%BA%E7%BD%91%E9%A1%B5"><span class="nav-number">2.</span> <span class="nav-text">2. github.io作为网页</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-configuration"><span class="nav-number">3.</span> <span class="nav-text">3. configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E4%B8%BB%E9%A2%98%E6%9B%BF%E6%8D%A2%E4%B8%BAnext"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 主题替换为next</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E4%BF%AE%E6%94%B9%E2%80%9D%E7%AB%99%E7%82%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E2%80%9D"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 修改”站点配置文件”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E4%BF%AE%E6%94%B9%E2%80%9D%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E2%80%9D"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 修改”主题配置文件”</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -315,7 +343,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
