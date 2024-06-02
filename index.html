@@ -180,7 +180,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-06-02 20:33:24 / Modified: 20:59:57" itemprop="dateCreated datePublished" datetime="2024-06-02T20:33:24+08:00">2024-06-02</time>
+              <time title="Created: 2024-06-02 20:33:24 / Modified: 21:09:11" itemprop="dateCreated datePublished" datetime="2024-06-02T20:33:24+08:00">2024-06-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -209,27 +209,36 @@
       
           <h1 id="1-发文章流程"><a href="#1-发文章流程" class="headerlink" title="1. 发文章流程"></a>1. 发文章流程</h1><ol>
 <li>new<blockquote>
-<p>hexo new [option] <title><br>建立一个新的new.md文件,如果配置了_config.yml中的default_layout参数则是默认会建立一个new文件夹用于存放new.md需要用到的.png等文件.</p>
+<p>hexo new [option] title<br>建立一个新的title.md文件,如果配置了_config.yml中的default_layout参数则是默认会建立一个title文件夹用于存放title.md需要用到的.png等文件.</p>
 </blockquote>
 </li>
 </ol>
 <ul>
 <li><code>[options]</code>主要只使用<code>-p 或者 --path</code>参数用来指示路径.</li>
-<li>路径:new.md会放在根目录&#x2F;source&#x2F;_posts下,这里面存的就是要发出去的文章.可以根据分类在_posts下自由放置在比如”工具篇”的文件夹下,并不影响.</li>
+<li>路径:title.md会放在根目录&#x2F;source&#x2F;_posts下,这里面存的就是要发出去的文章.可以根据分类在_posts下自由放置在比如”工具篇”的文件夹下,并不影响.</li>
 </ul>
 <ol start="2">
-<li><p>写文章</p>
+<li>写文章</li>
+<li>generate<blockquote>
+<p>hexo generate 或者 hexo g<br>生成静态文件</p>
+</blockquote>
 </li>
-<li><p>generate</p>
+<li>server<blockquote>
+<p>hexo server 或者 hexo s<br>启动本地端口预览,默认情况下，访问网址为:<a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a>.<br>hexo server -p 4001<br>可以重设端口为4001,访问网址为:<a target="_blank" rel="noopener" href="http://localhost:4001/">http://localhost:4001/</a>.</p>
+</blockquote>
 </li>
-<li><p>server</p>
+<li>deploy<blockquote>
+<p>hexo deploy 或者 hexo d<br>把静态文件部署在网页(github.io)上</p>
+</blockquote>
 </li>
-<li><p>deploy</p>
-</li>
+<li>其他<br><code>hexo g &amp; hexo d</code>可以连续执行两个命令</li>
 </ol>
-<h1 id="2-具体怎么写-md"><a href="#2-具体怎么写-md" class="headerlink" title="2. 具体怎么写.md"></a>2. 具体怎么写.md</h1><h1 id="hexo-部署博客到github和coding上，代码put上去了，但是访问博客内容却没更新？"><a href="#hexo-部署博客到github和coding上，代码put上去了，但是访问博客内容却没更新？" class="headerlink" title="hexo,部署博客到github和coding上，代码put上去了，但是访问博客内容却没更新？"></a>hexo,部署博客到github和coding上，代码put上去了，但是访问博客内容却没更新？</h1><ol>
-<li>hexo clean一下,再hexo g &amp; hexo d</li>
-<li>等会儿时间</li>
+<h1 id="2-写文章"><a href="#2-写文章" class="headerlink" title="2. 写文章"></a>2. 写文章</h1><p>与普通的md文件相比,只是多了一个Front-matter.根据需要写就行了</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">title: hexo(三)写博客&amp;发博客</span><br><span class="line">data: 2024/6/2 20:46:25</span><br><span class="line">updata: # 更新日期</span><br><span class="line">tags: </span><br><span class="line"><span class="bullet">    -</span> 基础教程</span><br><span class="line"><span class="bullet">    -</span> hexo</span><br><span class="line"><span class="bullet">    -</span> 静态博客</span><br><span class="line">categories:</span><br><span class="line"><span class="bullet">    -</span> 工具篇 # 这是一级分类</span><br><span class="line"><span class="section">    - hexo | 搭建静态博客 # 这是二级分类</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Q-hexo-部署博客到github上，代码更新在github了，但是访问博客内容却没更新？"><a href="#Q-hexo-部署博客到github上，代码更新在github了，但是访问博客内容却没更新？" class="headerlink" title="Q: hexo,部署博客到github上，代码更新在github了，但是访问博客内容却没更新？"></a>Q: hexo,部署博客到github上，代码更新在github了，但是访问博客内容却没更新？</h1><ol>
+<li><code>hexo clean</code>把本地的差分文件清理一下,再<code>hexo g &amp; hexo d</code></li>
+<li>等会儿时间,有时候会需要10分钟以内的更新时间</li>
 <li>浏览器缓存问题,用手机浏览器先看一下对不对</li>
 </ol>
 
@@ -326,7 +335,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20%7C%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%BA%8C)%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%96%87%E4%BB%B6%E5%A4%B9/" class="post-title-link" itemprop="url">hexo(二)配置</a>
+            <a href="/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20%7C%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%BA%8C)%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%96%87%E4%BB%B6%E5%A4%B9/" class="post-title-link" itemprop="url">hexo(二)配置工作区文件夹</a>
         </h2>
 
         <div class="post-meta">
@@ -337,7 +346,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-06-02 10:11:58 / Modified: 20:32:48" itemprop="dateCreated datePublished" datetime="2024-06-02T10:11:58+08:00">2024-06-02</time>
+              <time title="Created: 2024-06-02 10:11:58 / Modified: 21:09:18" itemprop="dateCreated datePublished" datetime="2024-06-02T10:11:58+08:00">2024-06-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
