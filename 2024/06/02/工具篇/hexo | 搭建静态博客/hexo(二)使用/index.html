@@ -20,28 +20,35 @@
     var CONFIG = {"hostname":"fengren123.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="fengren123&#39;s blog">
-<meta property="og:url" content="https://fengren123.github.io/index.html">
+  <meta name="description" content="参考:hexo官方Documentation&gt;   1. setup123hexo init &lt;folder&gt;cd &lt;folder&gt;npm install Once initialized, here’s what your project folder will look like: 1234567891011.├── _config.landscape.yml├─">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo(二)使用">
+<meta property="og:url" content="https://fengren123.github.io/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20|%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%BA%8C)%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="fengren123&#39;s blog">
+<meta property="og:description" content="参考:hexo官方Documentation&gt;   1. setup123hexo init &lt;folder&gt;cd &lt;folder&gt;npm install Once initialized, here’s what your project folder will look like: 1234567891011.├── _config.landscape.yml├─">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-06-02T02:11:58.919Z">
+<meta property="article:modified_time" content="2024-06-02T02:20:53.789Z">
 <meta property="article:author" content="fengren123">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="静态博客">
+<meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://fengren123.github.io/">
+<link rel="canonical" href="https://fengren123.github.io/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20|%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%BA%8C)%E4%BD%BF%E7%94%A8/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>fengren123's blog</title>
+  <title>hexo(二)使用 | fengren123's blog</title>
   
 
 
@@ -149,9 +156,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -167,10 +175,9 @@
       <meta itemprop="name" content="fengren123's blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20%7C%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%BA%8C)%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">hexo(二)使用</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          hexo(二)使用
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -207,183 +214,41 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>参考:<a target="_blank" rel="noopener" href="https://hexo.io/docs/index.html">hexo官方Documentation</a>&gt;  </p>
+        <p>参考:<a target="_blank" rel="noopener" href="https://hexo.io/docs/index.html">hexo官方Documentation</a>&gt;  </p>
 <h1 id="1-setup"><a href="#1-setup" class="headerlink" title="1. setup"></a>1. setup</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init &lt;folder&gt;</span><br><span class="line">cd &lt;folder&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
 <p>Once initialized, here’s what your project folder will look like:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.landscape.yml</span><br><span class="line">├── _config.yml | 大部分配置在这里修改</span><br><span class="line">├── db.json</span><br><span class="line">├── node_modules</span><br><span class="line">├── package-lock.json</span><br><span class="line">├── package.json</span><br><span class="line">├── public</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source | .md文件    </span><br><span class="line">└── themes | 配合next主题,优化配置</span><br></pre></td></tr></table></figure>
 
 <h1 id="2-configuration"><a href="#2-configuration" class="headerlink" title="2. configuration"></a>2. configuration</h1><h2 id="2-1-站点config"><a href="#2-1-站点config" class="headerlink" title="2.1 站点config"></a>2.1 站点config</h2><h2 id="2-1-文章config"><a href="#2-1-文章config" class="headerlink" title="2.1 文章config"></a>2.1 文章config</h2>
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/%E6%95%99%E7%A8%8B/" rel="tag"># 教程</a>
+              <a href="/tags/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" rel="tag"># 静态博客</a>
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20|%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%B8%80)%E5%AE%89%E8%A3%85/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="fengren123">
-      <meta itemprop="description" content="">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fengren123's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20%7C%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%B8%80)%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">hexo(一)安装</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2024-06-02 08:30:38 / Modified: 10:14:18" itemprop="dateCreated datePublished" datetime="2024-06-02T08:30:38+08:00">2024-06-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo-%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">hexo | 搭建静态博客</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>参考:<a target="_blank" rel="noopener" href="https://hexo.io/docs/index.html">hexo官方Documentation</a>&gt;  </p>
-<h1 id="1-安装Node-js"><a href="#1-安装Node-js" class="headerlink" title="1. 安装Node.js"></a>1. 安装Node.js</h1><p>从<a target="_blank" rel="noopener" href="https://github.com/nodesource/distributions">nodesource.github</a>安装,根据命令行操作即可</p>
-<h1 id="2-安装Git"><a href="#2-安装Git" class="headerlink" title="2. 安装Git"></a>2. 安装Git</h1><blockquote>
-<p>sudo apt install git-core  </p>
-</blockquote>
-<h1 id="3-安装hexo"><a href="#3-安装hexo" class="headerlink" title="3. 安装hexo"></a>3. 安装hexo</h1><ol>
-<li><blockquote>
-<p>npm install hexo</p>
-</blockquote>
-</li>
-<li><blockquote>
-<p>echo ‘PATH&#x3D;”$PATH:.&#x2F;node_modules&#x2F;.bin”‘ &gt;&gt; ~&#x2F;.profile<br>这一行的目的是将<code>hexo init &lt;工作文件夹&gt;</code>创建的&lt;工作文件夹&gt;的.bin下的内容(其中有hexo)添加为PATH,这样可以直接用<code>hexo</code>命令,而不用<code>npx hexo</code>.但是实际应用中,我发现好像不用这一行也可以直接用<code>hexo</code>命令</p>
-</blockquote>
-</li>
-</ol>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20%7C%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%B8%80)%E5%AE%89%E8%A3%85/" rel="prev" title="hexo(一)安装">
+      <i class="fa fa-chevron-left"></i> hexo(一)安装
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/05/23/%E5%B7%A5%E5%85%B7%E7%AF%87/hello-world/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="fengren123">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fengren123's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/23/%E5%B7%A5%E5%85%B7%E7%AF%87/hello-world/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-05-23 19:34:30" itemprop="dateCreated datePublished" datetime="2024-05-23T19:34:30+08:00">2024-05-23</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
@@ -436,6 +301,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-setup"><span class="nav-number">1.</span> <span class="nav-text">1. setup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-configuration"><span class="nav-number">2.</span> <span class="nav-text">2. configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E7%AB%99%E7%82%B9config"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 站点config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E6%96%87%E7%AB%A0config"><span class="nav-number">2.2.</span> <span class="nav-text">2.1 文章config</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
