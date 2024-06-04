@@ -20,15 +20,22 @@
     var CONFIG = {"hostname":"fengren123.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="article">
-<meta property="og:title" content="fengren123&#39;s blog">
+  <meta name="description" content="1. verilator介绍Verilator 是一款开源的支持 Verilog 和 SystemVerilog 仿真工具。它能够将给定的电路设计翻译成 C++ 或者 SystemC 的库等中间文件，最后使用 C&#x2F;C++ 编写激励测试，去调用前面生成的中间文件，由 C&#x2F;C++ 编译器编译执行，来完成仿真。此外，它也具有静态分析verilog代码语法正确与否的功能。 verila">
+<meta property="og:type" content="article">
+<meta property="og:title" content="verilator(二)基础使用">
 <meta property="og:url" content="https://fengren123.github.io/2024/06/04/%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator(%E4%BA%8C)%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="fengren123&#39;s blog">
+<meta property="og:description" content="1. verilator介绍Verilator 是一款开源的支持 Verilog 和 SystemVerilog 仿真工具。它能够将给定的电路设计翻译成 C++ 或者 SystemC 的库等中间文件，最后使用 C&#x2F;C++ 编写激励测试，去调用前面生成的中间文件，由 C&#x2F;C++ 编译器编译执行，来完成仿真。此外，它也具有静态分析verilog代码语法正确与否的功能。 verila">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://fengren123.github.io/source/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png">
 <meta property="article:published_time" content="2024-06-04T03:07:24.831Z">
-<meta property="article:modified_time" content="2024-06-04T03:07:24.831Z">
+<meta property="article:modified_time" content="2024-06-04T07:12:48.150Z">
 <meta property="article:author" content="fengren123">
+<meta property="article:tag" content="基础教程">
+<meta property="article:tag" content="verilator">
+<meta property="article:tag" content="verilog仿真工具">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fengren123.github.io/source/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png">
 
 <link rel="canonical" href="https://fengren123.github.io/2024/06/04/%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator(%E4%BA%8C)%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">
 
@@ -43,7 +50,7 @@
   };
 </script>
 
-  <title> | fengren123's blog</title>
+  <title>verilator(二)基础使用 | fengren123's blog</title>
   
 
 
@@ -171,7 +178,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
+          verilator(二)基础使用
         </h1>
 
         <div class="post-meta">
@@ -180,8 +187,22 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2024-06-04 11:07:24" itemprop="dateCreated datePublished" datetime="2024-06-04T11:07:24+08:00">2024-06-04</time>
+              <time title="Created: 2024-06-04 11:07:24 / Modified: 15:12:48" itemprop="dateCreated datePublished" datetime="2024-06-04T11:07:24+08:00">2024-06-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/" itemprop="url" rel="index"><span itemprop="name">verilator</span></a>
+                </span>
             </span>
 
           
@@ -195,7 +216,43 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="1-verilator介绍"><a href="#1-verilator介绍" class="headerlink" title="1. verilator介绍"></a>1. verilator介绍</h1><p>Verilator 是一款开源的支持 Verilog 和 SystemVerilog 仿真工具。它能够将给定的电路设计翻译成 C++ 或者 SystemC 的库等中间文件，最后使用 C&#x2F;C++ 编写激励测试，去调用前面生成的中间文件，由 C&#x2F;C++ 编译器编译执行，来完成仿真。此外，它也具有静态分析verilog代码语法正确与否的功能。</p>
+<h2 id="verilator的工作原理"><a href="#verilator的工作原理" class="headerlink" title="verilator的工作原理"></a>verilator的工作原理</h2><p>如下图所示,verilator是基于将.v转换为.cpp来进行仿真的:<img src="/./source/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png"></p>
+<ul>
+<li>首先，Verilator 将 Verilog 代码中<code>并行</code>的各个逻辑部件以合适的顺序<code>串行化</code>为C&#x2F;C++代码. 每个逻辑部件会被转化为C++语言中的<code>类</code>,并提供对应的接口和API. </li>
+<li>接着，我们需要使用 C&#x2F;C++ 编写激励文件。Verilator 为我们提供了顶层模块输入&#x2F;输出引脚的接口，使我们得以对顶层模块的输入信号赋值或读取其输出信号。与使用 Vivado 仿真不同的是，我们可以实时地输出一些调试信息；要查看波形图时，需要将波形图导出到文件,然后用gtkwave查看；</li>
+<li>最后，Verilator 会生成一个 Makefile 脚本，利用 GCC 等编译器将生成的 C&#x2F;C++ 文件和我们编写的激励文件编译成成用于仿真的可执行文件。</li>
+</ul>
+<h1 id="2-verilator命令"><a href="#2-verilator命令" class="headerlink" title="2. verilator命令"></a>2. verilator命令</h1><h2 id="verilator工具的编译命令"><a href="#verilator工具的编译命令" class="headerlink" title="verilator工具的编译命令"></a>verilator工具的编译命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">verilator [optionsA] &lt;verilog file(s)&gt;</span> </span><br></pre></td></tr></table></figure>
+<p>其中，<verilog_file> 是需要仿真的 Verilog 文件，[options] 是一些编译选项，这里列出一些常用的编译选项：</p>
+<ul>
+<li>–cc：指定将&lt;verilog_file(s)&gt;转化为 C++ 代码；</li>
+<li>–exe <cpp_file>：<cpp_file> 是用C++手动编写的tb文件,指定<cpp_file>为顶层测试文件;</li>
+<li>–build：直接编译生成目标文件,即可执行文件；</li>
+<li>–trace：导出波形文件时需要添加此选项,开启波形追踪；</li>
+<li>–top-module <top_module>：指定 Verilog 顶层模块；</li>
+<li>–Mdir <obj_dir>：Verilator 在编译 Verilog 文件时，会生成一系列的中间文件和输出文件，这些文件用于后续的编译和链接过程。指定 –Mdir 选项可以将这些文件放到一个特定的目录中，以便于管理和组织.default是obj_dir,可以改名为别的</li>
+<li>-CFLAGS <c_flags>：指定一个 GCC 的编译选项；</li>
+<li>-I <include_path>：可以指定一个包含路径,用于查找文件。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">verilator --cc verilog/top_module.v verilog/sub_module.v\</span></span><br><span class="line"><span class="language-bash">            --exe src/testbench.cpp \</span></span><br><span class="line"><span class="language-bash">            --build \</span></span><br><span class="line"><span class="language-bash">            --trace \</span></span><br><span class="line"><span class="language-bash">            --top-module top_module \</span></span><br><span class="line"><span class="language-bash">            --Mdir fzx_obj_dir \</span></span><br><span class="line"><span class="language-bash">            -CFLAGS <span class="string">&quot;-Wall -o2&quot;</span> \</span></span><br><span class="line"><span class="language-bash">        <span class="comment">#   -I include_path</span></span></span><br></pre></td></tr></table></figure>
+以上是一个使用全部常用参数的示例,执行上述命令后,即可在<code>fzx_obj_dir</code>中看到一个可执行文件<code>Vtop_module</code>.执行后可以在当前目录看到波形文件<code>&lt;wavefrom_name.gtk&gt;</code>.</li>
+</ul>
+<h2 id="自定义verilator工具编译命令"><a href="#自定义verilator工具编译命令" class="headerlink" title="自定义verilator工具编译命令"></a>自定义verilator工具编译命令</h2><p>上一小节使用verilator编译时候,会自动生成一个Makefile文件用于指导编译,名为<code>V&lt;top_module&gt;.mk</code>.在使用verilator编译时,如果指定了<code>--build</code>选项就会自动基于该.mk文件使用make进行编译,并生成可执行文件<code>V&lt;top_module&gt;</code>.<br>有时候需要自定义更丰富复杂的编译命令,就不能使用<code>--build</code>选项,而是需要重写一个makefile文件,在其中include <code>V&lt;top_module&gt;.mk</code>,并添加其他规则然后手动使用<code>make</code>工具进行编译.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ verilator -Wall --trace -cc alu.sv --exe tb_alu.cpp</span><br><span class="line">$ make -C obj_dir -f Valu.mk Valu</span><br></pre></td></tr></table></figure>
+<p>上面是一个简单的例子,使用verilator得到了一个指导编译的文件<code>Valu.mk</code>.然后手动使用make工具编译,<code>-C obj_dir</code>指示工作文件夹,<code>-f Valu.mk</code>指示makefile文件.(这个例子没有手动写一个new.mk)</p>
+<h1 id="3-日常基础使用流程"><a href="#3-日常基础使用流程" class="headerlink" title="3. 日常基础使用流程"></a>3. 日常基础使用流程</h1><p>参考一个非官方<a target="_blank" rel="noopener" href="https://itsembedded.com/dhd/verilator_1/">verilator教程part1</a></p>
+<h2 id="3-1-电路模块的verilog代码"><a href="#3-1-电路模块的verilog代码" class="headerlink" title="3.1 电路模块的verilog代码"></a>3.1 电路模块的verilog代码</h2><p>正常编写alu.sv</p>
+<h2 id="3-2-testbench文件"><a href="#3-2-testbench文件" class="headerlink" title="3.2 testbench文件"></a>3.2 testbench文件</h2><p>需要使用c++而不是verilog编写testbench.cpp.具体写法在后面专门介绍.</p>
+<h2 id="3-3-使用verilator编译"><a href="#3-3-使用verilator编译" class="headerlink" title="3.3 使用verilator编译"></a>3.3 使用verilator编译</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">verilator   -Wall </span><br><span class="line">            --cc verilog/alu.sv </span><br><span class="line">            --exe src/tb_alu.cpp </span><br><span class="line">            --trace </span><br><span class="line">            --top-module alu </span><br><span class="line">            --Mdir obj_dir # (default值就是obj_dir)</span><br><span class="line">            -CFLAGS &quot;-Wall -O2&quot; </span><br><span class="line">            # --build (不注释则直接在obj_dir下生成可执行文件Valu)</span><br><span class="line">            # -I include_path</span><br></pre></td></tr></table></figure>
+<p>编译后生成<code>obj_dir</code>文件夹存放编译的中间文件</p>
+<h2 id="3-4-介绍编译生成的中间文件"><a href="#3-4-介绍编译生成的中间文件" class="headerlink" title="3.4 介绍编译生成的中间文件"></a>3.4 介绍编译生成的中间文件</h2><p>编译后生成<code>obj_dir</code>文件夹存放编译的中间文件,其中需要关注的有:</p>
+<ul>
+<li>Valu.cpp, Valu.h: alu转换后对应的C++源文件以及头文件，其中Valu.h 包含了转换后的<code>ALU</code>类–也就是我们将在C++ testbench 中作为DUT “实例化 “的东西。</li>
+<li>Valu.mk: 指导编译的makefile文件</li>
+<li>Valu___024unit.h:<br>另外,如果alu.sv中使用了一些语法,例如以下代码,则可能在Valu.h之外会再生成一些其他的头文件,比如本例中的Valu___024unit.h,用作<code>ALU</code>类的内部头文件.内容是operation_t 数据类型定义.<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> <span class="title class_">logic</span> [<span class="number">1</span>:<span class="number">0</span>] &#123;</span><br><span class="line">     add     = <span class="number">2&#x27;</span>h1,</span><br><span class="line">     sub     = <span class="number">2&#x27;</span>h2,</span><br><span class="line">     nop     = <span class="number">2&#x27;</span>h0</span><br><span class="line">&#125; <span class="type">operation_t</span> <span class="comment">/*verilator public*/</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="3-5-生成可执行文件"><a href="#3-5-生成可执行文件" class="headerlink" title="3.5 生成可执行文件"></a>3.5 生成可执行文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make -C obj_dir -f Valu.mk Valu</span></span><br></pre></td></tr></table></figure>
+<p>使用make工具调用指导编译的Valu.mk文件,生成可执行文件<code>Valu</code></p>
+<h1 id="4-如何编写verilator工具的tb-cpp"><a href="#4-如何编写verilator工具的tb-cpp" class="headerlink" title="4. 如何编写verilator工具的tb.cpp"></a>4. 如何编写verilator工具的tb.cpp</h1>
     </div>
 
     
@@ -203,6 +260,11 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" rel="tag"># 基础教程</a>
+              <a href="/tags/verilator/" rel="tag"># verilator</a>
+              <a href="/tags/verilog%E4%BB%BF%E7%9C%9F%E5%B7%A5%E5%85%B7/" rel="tag"># verilog仿真工具</a>
+          </div>
 
         
 
@@ -210,8 +272,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2024/06/04/%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator(%E4%B8%80)%E5%AE%89%E8%A3%85/" rel="prev" title="hexo(一)安装">
-      <i class="fa fa-chevron-left"></i> hexo(一)安装
+    <a href="/2024/06/04/%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator(%E4%B8%80)%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%89%E8%A3%85/" rel="prev" title="verilator(一)介绍与安装">
+      <i class="fa fa-chevron-left"></i> verilator(一)介绍与安装
     </a></div>
       <div class="post-nav-item">
     <a href="/2024/06/04/%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator(%E4%B8%89)%E8%BF%9B%E9%98%B6:%E6%8E%A5%E5%85%A5nvboard/" rel="next" title="">
@@ -275,6 +337,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-verilator%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">1. verilator介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#verilator%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">verilator的工作原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-verilator%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">2. verilator命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#verilator%E5%B7%A5%E5%85%B7%E7%9A%84%E7%BC%96%E8%AF%91%E5%91%BD%E4%BB%A4"><span class="nav-number">2.1.</span> <span class="nav-text">verilator工具的编译命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89verilator%E5%B7%A5%E5%85%B7%E7%BC%96%E8%AF%91%E5%91%BD%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">自定义verilator工具编译命令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%97%A5%E5%B8%B8%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">3. 日常基础使用流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E7%94%B5%E8%B7%AF%E6%A8%A1%E5%9D%97%E7%9A%84verilog%E4%BB%A3%E7%A0%81"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 电路模块的verilog代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-testbench%E6%96%87%E4%BB%B6"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 testbench文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E4%BD%BF%E7%94%A8verilator%E7%BC%96%E8%AF%91"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 使用verilator编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-%E4%BB%8B%E7%BB%8D%E7%BC%96%E8%AF%91%E7%94%9F%E6%88%90%E7%9A%84%E4%B8%AD%E9%97%B4%E6%96%87%E4%BB%B6"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 介绍编译生成的中间文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-%E7%94%9F%E6%88%90%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 生成可执行文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99verilator%E5%B7%A5%E5%85%B7%E7%9A%84tb-cpp"><span class="nav-number">4.</span> <span class="nav-text">4. 如何编写verilator工具的tb.cpp</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -288,7 +351,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
