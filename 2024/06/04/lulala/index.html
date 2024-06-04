@@ -27,12 +27,12 @@
 <meta property="og:site_name" content="fengren123&#39;s blog">
 <meta property="og:description" content="1. verilator介绍Verilator 是一款开源的支持 Verilog 和 SystemVerilog 仿真工具。它能够将给定的电路设计翻译成 C++ 或者 SystemC 的库等中间文件，最后使用 C&#x2F;C++ 编写激励测试，去调用前面生成的中间文件，由 C&#x2F;C++ 编译器编译执行，来完成仿真。此外，它也具有静态分析verilog代码语法正确与否的功能。 verila">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://fengren123.github.io/lulala/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="https://fengren123.github.io/2024/06/04/lulala/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png">
 <meta property="article:published_time" content="2024-06-04T10:46:00.000Z">
-<meta property="article:modified_time" content="2024-06-04T11:01:26.998Z">
+<meta property="article:modified_time" content="2024-06-04T11:17:11.167Z">
 <meta property="article:author" content="fengren123">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://fengren123.github.io/lulala/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png">
+<meta name="twitter:image" content="https://fengren123.github.io/2024/06/04/lulala/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png">
 
 <link rel="canonical" href="https://fengren123.github.io/2024/06/04/lulala/">
 
@@ -186,7 +186,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-06-04 18:46:00 / Modified: 19:01:26" itemprop="dateCreated datePublished" datetime="2024-06-04T18:46:00+08:00">2024-06-04</time>
+              <time title="Created: 2024-06-04 18:46:00 / Modified: 19:17:11" itemprop="dateCreated datePublished" datetime="2024-06-04T18:46:00+08:00">2024-06-04</time>
             </span>
 
           
@@ -201,24 +201,24 @@
 
       
         <h1 id="1-verilator介绍"><a href="#1-verilator介绍" class="headerlink" title="1. verilator介绍"></a>1. verilator介绍</h1><p>Verilator 是一款开源的支持 Verilog 和 SystemVerilog 仿真工具。它能够将给定的电路设计翻译成 C++ 或者 SystemC 的库等中间文件，最后使用 C&#x2F;C++ 编写激励测试，去调用前面生成的中间文件，由 C&#x2F;C++ 编译器编译执行，来完成仿真。此外，它也具有静态分析verilog代码语法正确与否的功能。</p>
-<h2 id="verilator的工作原理"><a href="#verilator的工作原理" class="headerlink" title="verilator的工作原理"></a>verilator的工作原理</h2><p>如下图所示,verilator是基于将.v转换为.cpp来进行仿真的:<img src="/lulala/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png" alt="verilator工作原理"></p>
+<h2 id="verilator的工作原理"><a href="#verilator的工作原理" class="headerlink" title="verilator的工作原理"></a>verilator的工作原理</h2><p>如下图所示,verilator是基于将.v转换为.cpp来进行仿真的:<img src="/2024/06/04/lulala/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png" class="" title="verilator工作原理"></p>
 <ul>
 <li>首先，Verilator 将 Verilog 代码中<code>并行</code>的各个逻辑部件以合适的顺序<code>串行化</code>为C&#x2F;C++代码. 每个逻辑部件会被转化为C++语言中的<code>类</code>,并提供对应的接口和API. </li>
 <li>接着，我们需要使用 C&#x2F;C++ 编写激励文件。Verilator 为我们提供了顶层模块输入&#x2F;输出引脚的接口，使我们得以对顶层模块的输入信号赋值或读取其输出信号。与使用 Vivado 仿真不同的是，我们可以实时地输出一些调试信息；要查看波形图时，需要将波形图导出到文件,然后用gtkwave查看；</li>
 <li>最后，Verilator 会生成一个 Makefile 脚本，利用 GCC 等编译器将生成的 C&#x2F;C++ 文件和我们编写的激励文件编译成成用于仿真的可执行文件。</li>
 </ul>
 <h1 id="2-verilator命令"><a href="#2-verilator命令" class="headerlink" title="2. verilator命令"></a>2. verilator命令</h1><h2 id="verilator工具的编译命令"><a href="#verilator工具的编译命令" class="headerlink" title="verilator工具的编译命令"></a>verilator工具的编译命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">verilator [optionsA] &lt;verilog file(s)&gt;</span> </span><br></pre></td></tr></table></figure>
-<p>其中，<verilog_file> 是需要仿真的 Verilog 文件，[options] 是一些编译选项，这里列出一些常用的编译选项：</verilog_file></p>
+<p>其中，<verilog_file> 是需要仿真的 Verilog 文件，[options] 是一些编译选项，这里列出一些常用的编译选项：</p>
 <ul>
 <li>–cc：指定将&lt;verilog_file(s)&gt;转化为 C++ 代码；</li>
-<li>–exe <cpp_file>：<cpp_file> 是用C++手动编写的tb文件,指定<cpp_file>为顶层测试文件;</cpp_file></cpp_file></cpp_file></li>
+<li>–exe <cpp_file>：<cpp_file> 是用C++手动编写的tb文件,指定<cpp_file>为顶层测试文件;</li>
 <li>–build：直接编译生成目标文件,即可执行文件；</li>
 <li>–trace：导出波形文件时需要添加此选项,开启波形追踪；</li>
-<li>–top-module <top_module>：指定 Verilog 顶层模块；</top_module></li>
-<li>–Mdir <obj_dir>：Verilator 在编译 Verilog 文件时，会生成一系列的中间文件和输出文件，这些文件用于后续的编译和链接过程。指定 –Mdir 选项可以将这些文件放到一个特定的目录中，以便于管理和组织.default是obj_dir,可以改名为别的</obj_dir></li>
-<li>-CFLAGS <c_flags>：指定一个 GCC 的编译选项；</c_flags></li>
+<li>–top-module <top_module>：指定 Verilog 顶层模块；</li>
+<li>–Mdir <obj_dir>：Verilator 在编译 Verilog 文件时，会生成一系列的中间文件和输出文件，这些文件用于后续的编译和链接过程。指定 –Mdir 选项可以将这些文件放到一个特定的目录中，以便于管理和组织.default是obj_dir,可以改名为别的</li>
+<li>-CFLAGS <c_flags>：指定一个 GCC 的编译选项；</li>
 <li>-I <include_path>：可以指定一个包含路径,用于查找文件。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">verilator --cc verilog/top_module.v verilog/sub_module.v\</span></span><br><span class="line"><span class="language-bash">            --exe src/testbench.cpp \</span></span><br><span class="line"><span class="language-bash">            --build \</span></span><br><span class="line"><span class="language-bash">            --trace \</span></span><br><span class="line"><span class="language-bash">            --top-module top_module \</span></span><br><span class="line"><span class="language-bash">            --Mdir fzx_obj_dir \</span></span><br><span class="line"><span class="language-bash">            -CFLAGS <span class="string">&quot;-Wall -o2&quot;</span> \</span></span><br><span class="line"><span class="language-bash">        <span class="comment">#   -I include_path</span></span></span><br></pre></td></tr></table></figure>
-以上是一个使用全部常用参数的示例,执行上述命令后,即可在<code>fzx_obj_dir</code>中看到一个可执行文件<code>Vtop_module</code>.执行后可以在当前目录看到波形文件<code>&lt;wavefrom_name.gtk&gt;</code>.</include_path></li>
+以上是一个使用全部常用参数的示例,执行上述命令后,即可在<code>fzx_obj_dir</code>中看到一个可执行文件<code>Vtop_module</code>.执行后可以在当前目录看到波形文件<code>&lt;wavefrom_name.gtk&gt;</code>.</li>
 </ul>
 <h2 id="自定义verilator工具编译命令"><a href="#自定义verilator工具编译命令" class="headerlink" title="自定义verilator工具编译命令"></a>自定义verilator工具编译命令</h2><p>上一小节使用verilator编译时候,会自动生成一个Makefile文件用于指导编译,名为<code>V&lt;top_module&gt;.mk</code>.在使用verilator编译时,如果指定了<code>--build</code>选项就会自动基于该.mk文件使用make进行编译,并生成可执行文件<code>V&lt;top_module&gt;</code>.<br>有时候需要自定义更丰富复杂的编译命令,就不能使用<code>--build</code>选项,而是需要重写一个makefile文件,在其中include <code>V&lt;top_module&gt;.mk</code>,并添加其他规则然后手动使用<code>make</code>工具进行编译.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ verilator -Wall --trace -cc alu.sv --exe tb_alu.cpp</span><br><span class="line">$ make -C obj_dir -f Valu.mk Valu</span><br></pre></td></tr></table></figure>
