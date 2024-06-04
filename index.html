@@ -155,100 +155,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/04/lulala/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="fengren123">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fengren123's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/04/lulala/" class="post-title-link" itemprop="url">lulala</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2024-06-04 18:46:00 / Modified: 19:17:11" itemprop="dateCreated datePublished" datetime="2024-06-04T18:46:00+08:00">2024-06-04</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-verilator介绍"><a href="#1-verilator介绍" class="headerlink" title="1. verilator介绍"></a>1. verilator介绍</h1><p>Verilator 是一款开源的支持 Verilog 和 SystemVerilog 仿真工具。它能够将给定的电路设计翻译成 C++ 或者 SystemC 的库等中间文件，最后使用 C&#x2F;C++ 编写激励测试，去调用前面生成的中间文件，由 C&#x2F;C++ 编译器编译执行，来完成仿真。此外，它也具有静态分析verilog代码语法正确与否的功能。</p>
-<h2 id="verilator的工作原理"><a href="#verilator的工作原理" class="headerlink" title="verilator的工作原理"></a>verilator的工作原理</h2><p>如下图所示,verilator是基于将.v转换为.cpp来进行仿真的:<img src="/2024/06/04/lulala/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png" class="" title="verilator工作原理"></p>
-<ul>
-<li>首先，Verilator 将 Verilog 代码中<code>并行</code>的各个逻辑部件以合适的顺序<code>串行化</code>为C&#x2F;C++代码. 每个逻辑部件会被转化为C++语言中的<code>类</code>,并提供对应的接口和API. </li>
-<li>接着，我们需要使用 C&#x2F;C++ 编写激励文件。Verilator 为我们提供了顶层模块输入&#x2F;输出引脚的接口，使我们得以对顶层模块的输入信号赋值或读取其输出信号。与使用 Vivado 仿真不同的是，我们可以实时地输出一些调试信息；要查看波形图时，需要将波形图导出到文件,然后用gtkwave查看；</li>
-<li>最后，Verilator 会生成一个 Makefile 脚本，利用 GCC 等编译器将生成的 C&#x2F;C++ 文件和我们编写的激励文件编译成成用于仿真的可执行文件。</li>
-</ul>
-<h1 id="2-verilator命令"><a href="#2-verilator命令" class="headerlink" title="2. verilator命令"></a>2. verilator命令</h1><h2 id="verilator工具的编译命令"><a href="#verilator工具的编译命令" class="headerlink" title="verilator工具的编译命令"></a>verilator工具的编译命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">verilator [optionsA] &lt;verilog file(s)&gt;</span> </span><br></pre></td></tr></table></figure>
-<p>其中，<verilog_file> 是需要仿真的 Verilog 文件，[options] 是一些编译选项，这里列出一些常用的编译选项：</p>
-<ul>
-<li>–cc：指定将&lt;verilog_file(s)&gt;转化为 C++ 代码；</li>
-<li>–exe <cpp_file>：<cpp_file> 是用C++手动编写的tb文件,指定<cpp_file>为顶层测试文件;</li>
-<li>–build：直接编译生成目标文件,即可执行文件；</li>
-<li>–trace：导出波形文件时需要添加此选项,开启波形追踪；</li>
-<li>–top-module <top_module>：指定 Verilog 顶层模块；</li>
-<li>–Mdir <obj_dir>：Verilator 在编译 Verilog 文件时，会生成一系列的中间文件和输出文件，这些文件用于后续的编译和链接过程。指定 –Mdir 选项可以将这些文件放到一个特定的目录中，以便于管理和组织.default是obj_dir,可以改名为别的</li>
-<li>-CFLAGS <c_flags>：指定一个 GCC 的编译选项；</li>
-<li>-I <include_path>：可以指定一个包含路径,用于查找文件。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">verilator --cc verilog/top_module.v verilog/sub_module.v\</span></span><br><span class="line"><span class="language-bash">            --exe src/testbench.cpp \</span></span><br><span class="line"><span class="language-bash">            --build \</span></span><br><span class="line"><span class="language-bash">            --trace \</span></span><br><span class="line"><span class="language-bash">            --top-module top_module \</span></span><br><span class="line"><span class="language-bash">            --Mdir fzx_obj_dir \</span></span><br><span class="line"><span class="language-bash">            -CFLAGS <span class="string">&quot;-Wall -o2&quot;</span> \</span></span><br><span class="line"><span class="language-bash">        <span class="comment">#   -I include_path</span></span></span><br></pre></td></tr></table></figure>
-以上是一个使用全部常用参数的示例,执行上述命令后,即可在<code>fzx_obj_dir</code>中看到一个可执行文件<code>Vtop_module</code>.执行后可以在当前目录看到波形文件<code>&lt;wavefrom_name.gtk&gt;</code>.</li>
-</ul>
-<h2 id="自定义verilator工具编译命令"><a href="#自定义verilator工具编译命令" class="headerlink" title="自定义verilator工具编译命令"></a>自定义verilator工具编译命令</h2><p>上一小节使用verilator编译时候,会自动生成一个Makefile文件用于指导编译,名为<code>V&lt;top_module&gt;.mk</code>.在使用verilator编译时,如果指定了<code>--build</code>选项就会自动基于该.mk文件使用make进行编译,并生成可执行文件<code>V&lt;top_module&gt;</code>.<br>有时候需要自定义更丰富复杂的编译命令,就不能使用<code>--build</code>选项,而是需要重写一个makefile文件,在其中include <code>V&lt;top_module&gt;.mk</code>,并添加其他规则然后手动使用<code>make</code>工具进行编译.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ verilator -Wall --trace -cc alu.sv --exe tb_alu.cpp</span><br><span class="line">$ make -C obj_dir -f Valu.mk Valu</span><br></pre></td></tr></table></figure>
-<p>上面是一个简单的例子,使用verilator得到了一个指导编译的文件<code>Valu.mk</code>.然后手动使用make工具编译,<code>-C obj_dir</code>指示工作文件夹,<code>-f Valu.mk</code>指示makefile文件.(这个例子没有手动写一个new.mk)</p>
-<h1 id="3-日常基础使用流程"><a href="#3-日常基础使用流程" class="headerlink" title="3. 日常基础使用流程"></a>3. 日常基础使用流程</h1><p>参考一个非官方<a target="_blank" rel="noopener" href="https://itsembedded.com/dhd/verilator_1/">verilator教程part1</a></p>
-<h2 id="3-1-电路模块的verilog代码"><a href="#3-1-电路模块的verilog代码" class="headerlink" title="3.1 电路模块的verilog代码"></a>3.1 电路模块的verilog代码</h2><p>正常编写alu.sv</p>
-<h2 id="3-2-testbench文件"><a href="#3-2-testbench文件" class="headerlink" title="3.2 testbench文件"></a>3.2 testbench文件</h2><p>需要使用c++而不是verilog编写testbench.cpp.具体写法在后面专门介绍.</p>
-<h2 id="3-3-使用verilator编译"><a href="#3-3-使用verilator编译" class="headerlink" title="3.3 使用verilator编译"></a>3.3 使用verilator编译</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">verilator   -Wall </span><br><span class="line">            --cc verilog/alu.sv </span><br><span class="line">            --exe src/tb_alu.cpp </span><br><span class="line">            --trace </span><br><span class="line">            --top-module alu </span><br><span class="line">            --Mdir obj_dir # (default值就是obj_dir)</span><br><span class="line">            -CFLAGS &quot;-Wall -O2&quot; </span><br><span class="line">            # --build (不注释则直接在obj_dir下生成可执行文件Valu)</span><br><span class="line">            # -I include_path</span><br></pre></td></tr></table></figure>
-<p>编译后生成<code>obj_dir</code>文件夹存放编译的中间文件</p>
-<h2 id="3-4-介绍编译生成的中间文件"><a href="#3-4-介绍编译生成的中间文件" class="headerlink" title="3.4 介绍编译生成的中间文件"></a>3.4 介绍编译生成的中间文件</h2><p>编译后生成<code>obj_dir</code>文件夹存放编译的中间文件,其中需要关注的有:</p>
-<ul>
-<li>Valu.cpp, Valu.h: alu转换后对应的C++源文件以及头文件，其中Valu.h 包含了转换后的<code>ALU</code>类–也就是我们将在C++ testbench 中作为DUT “实例化 “的东西。</li>
-<li>Valu.mk: 指导编译的makefile文件</li>
-<li>Valu___024unit.h:<br>另外,如果alu.sv中使用了一些语法,例如以下代码,则可能在Valu.h之外会再生成一些其他的头文件,比如本例中的Valu___024unit.h,用作<code>ALU</code>类的内部头文件.内容是operation_t 数据类型定义.<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> <span class="title class_">logic</span> [<span class="number">1</span>:<span class="number">0</span>] &#123;</span><br><span class="line">     add     = <span class="number">2&#x27;</span>h1,</span><br><span class="line">     sub     = <span class="number">2&#x27;</span>h2,</span><br><span class="line">     nop     = <span class="number">2&#x27;</span>h0</span><br><span class="line">&#125; <span class="type">operation_t</span> <span class="comment">/*verilator public*/</span>;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="3-5-生成可执行文件"><a href="#3-5-生成可执行文件" class="headerlink" title="3.5 生成可执行文件"></a>3.5 生成可执行文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make -C obj_dir -f Valu.mk Valu</span></span><br></pre></td></tr></table></figure>
-<p>使用make工具调用指导编译的Valu.mk文件,生成可执行文件<code>Valu</code></p>
-<h1 id="4-如何编写verilator工具的tb-cpp"><a href="#4-如何编写verilator工具的tb-cpp" class="headerlink" title="4. 如何编写verilator工具的tb.cpp"></a>4. 如何编写verilator工具的tb.cpp</h1>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/04/Linux%E7%AF%87/%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7/(%E6%9C%AA%E5%86%99)%E6%89%8B%E5%8A%A8%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -389,7 +295,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-06-04 11:07:24 / Modified: 15:12:48" itemprop="dateCreated datePublished" datetime="2024-06-04T11:07:24+08:00">2024-06-04</time>
+              <time title="Created: 2024-06-04 11:07:24 / Modified: 19:47:07" itemprop="dateCreated datePublished" datetime="2024-06-04T11:07:24+08:00">2024-06-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -417,7 +323,7 @@
 
       
           <h1 id="1-verilator介绍"><a href="#1-verilator介绍" class="headerlink" title="1. verilator介绍"></a>1. verilator介绍</h1><p>Verilator 是一款开源的支持 Verilog 和 SystemVerilog 仿真工具。它能够将给定的电路设计翻译成 C++ 或者 SystemC 的库等中间文件，最后使用 C&#x2F;C++ 编写激励测试，去调用前面生成的中间文件，由 C&#x2F;C++ 编译器编译执行，来完成仿真。此外，它也具有静态分析verilog代码语法正确与否的功能。</p>
-<h2 id="verilator的工作原理"><a href="#verilator的工作原理" class="headerlink" title="verilator的工作原理"></a>verilator的工作原理</h2><p>如下图所示,verilator是基于将.v转换为.cpp来进行仿真的:<img src="/./source/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png"></p>
+<h2 id="verilator的工作原理"><a href="#verilator的工作原理" class="headerlink" title="verilator的工作原理"></a>verilator的工作原理</h2><p>如下图所示,verilator是基于将.v转换为.cpp来进行仿真的:<img src="/verilator(%E4%BA%8C)%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png" alt="verilator工作原理"></p>
 <ul>
 <li>首先，Verilator 将 Verilog 代码中<code>并行</code>的各个逻辑部件以合适的顺序<code>串行化</code>为C&#x2F;C++代码. 每个逻辑部件会被转化为C++语言中的<code>类</code>,并提供对应的接口和API. </li>
 <li>接着，我们需要使用 C&#x2F;C++ 编写激励文件。Verilator 为我们提供了顶层模块输入&#x2F;输出引脚的接口，使我们得以对顶层模块的输入信号赋值或读取其输出信号。与使用 Vivado 仿真不同的是，我们可以实时地输出一些调试信息；要查看波形图时，需要将波形图导出到文件,然后用gtkwave查看；</li>
@@ -496,7 +402,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-06-04 10:53:05 / Modified: 18:41:43" itemprop="dateCreated datePublished" datetime="2024-06-04T10:53:05+08:00">2024-06-04</time>
+              <time title="Created: 2024-06-04 10:53:05 / Modified: 19:46:47" itemprop="dateCreated datePublished" datetime="2024-06-04T10:53:05+08:00">2024-06-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -524,7 +430,7 @@
 
       
           <h1 id="1-verilator介绍"><a href="#1-verilator介绍" class="headerlink" title="1. verilator介绍"></a>1. verilator介绍</h1><p>Verilator 是一款开源的支持 Verilog 和 SystemVerilog 仿真工具。它能够将给定的电路设计翻译成 C++ 或者 SystemC 的库等中间文件，最后使用 C&#x2F;C++ 编写激励测试，去调用前面生成的中间文件，由 C&#x2F;C++ 编译器编译执行，来完成仿真。此外，它也具有静态分析verilog代码语法正确与否的功能。</p>
-<h2 id="verilator的工作原理"><a href="#verilator的工作原理" class="headerlink" title="verilator的工作原理"></a>verilator的工作原理</h2><p>如下图所示,verilator是基于将.v转换为.cpp来进行仿真的:<img src="/source/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png"></p>
+<h2 id="verilator的工作原理"><a href="#verilator的工作原理" class="headerlink" title="verilator的工作原理"></a>verilator的工作原理</h2><p>如下图所示,verilator是基于将.v转换为.cpp来进行仿真的:<img src="/verilator(%E4%B8%80)%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%89%E8%A3%85/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png" alt="verilator工作原理"></p>
 <ul>
 <li>首先，Verilator 将 Verilog 代码中<code>并行</code>的各个逻辑部件以合适的顺序<code>串行化</code>为C&#x2F;C++代码. 每个逻辑部件会被转化为C++语言中的<code>类</code>,并提供对应的接口和API. </li>
 <li>接着，我们需要使用 C&#x2F;C++ 编写激励文件。Verilator 为我们提供了顶层模块输入&#x2F;输出引脚的接口，使我们得以对顶层模块的输入信号赋值或读取其输出信号。与使用 Vivado 仿真不同的是，我们可以实时地输出一些调试信息；要查看波形图时，需要将波形图导出到文件,然后用gtkwave查看；</li>
@@ -584,7 +490,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-06-04 10:50:42" itemprop="dateModified" datetime="2024-06-04T10:50:42+08:00">2024-06-04</time>
+                <time title="Modified: 2024-06-04 19:44:51" itemprop="dateModified" datetime="2024-06-04T19:44:51+08:00">2024-06-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -613,6 +519,20 @@
       
           <h1 id="设置代码块高亮和代码块复制功能"><a href="#设置代码块高亮和代码块复制功能" class="headerlink" title="设置代码块高亮和代码块复制功能"></a>设置代码块高亮和代码块复制功能</h1><p>使用next主题情况下,修改<code>主题配置文件</code>中的内容如下</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">highlight_theme:</span> <span class="string">normal</span></span><br><span class="line"><span class="attr">codeblock:</span></span><br><span class="line">  <span class="comment"># Manual define the border radius in codeblock, leave it blank for the default value: 1</span></span><br><span class="line">  <span class="attr">border_radius:</span></span><br><span class="line">  <span class="comment"># Add copy button on codeblock</span></span><br><span class="line">  <span class="attr">copy_button:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment"># 开启代码块复制</span></span><br><span class="line">    <span class="comment"># Show text copy result</span></span><br><span class="line">    <span class="attr">show_result:</span> <span class="literal">true</span> <span class="comment"># 提示复制结果</span></span><br><span class="line">    <span class="comment"># Style: only &#x27;flat&#x27; is currently available, leave it blank if you prefer default theme</span></span><br><span class="line">    <span class="attr">style:</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="hexo的博客中如何添加本地图片内容"><a href="#hexo的博客中如何添加本地图片内容" class="headerlink" title="hexo的博客中如何添加本地图片内容"></a>hexo的博客中如何添加本地图片内容</h1><p>参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/edisonfish/p/18180672">博客园文章:hexo 博客插入本地图片时遇到的坑</a>.</p>
+<h2 id="1-开启-config-yml中的post-asset-folder"><a href="#1-开启-config-yml中的post-asset-folder" class="headerlink" title="1. 开启_config.yml中的post_asset_folder"></a>1. 开启_config.yml中的<code>post_asset_folder</code></h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>即之前系列文章已经提到过的配置项,开启后在<code>hexo init &lt;new_title&gt;</code>时会为<new_title>.md文章生成配套的<new_title>文件夹,用来存放png等资源.</p>
+<h2 id="2-安装”插图”插件"><a href="#2-安装”插图”插件" class="headerlink" title="2. 安装”插图”插件"></a>2. 安装”插图”插件</h2><p>插图插件的作用主要是转换路径,网上大部分资料让使用的是<code>hexo-asset-image</code>,但是这个插件已经archived了,是存在bug的.正确的插件应该是<code>hexo-asset-img</code>.</p>
+<ol>
+<li>首先卸载掉旧的<code>hexo-asset-image</code>:这个插件是npm安装在工作区下的,所以在工作区的<code>node_modules</code>目录下找到这个文件夹删掉就行.</li>
+<li>安装新插件:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-asset-img --save</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="3-引用图片的格式规矩"><a href="#3-引用图片的格式规矩" class="headerlink" title="3. 引用图片的格式规矩"></a>3. 引用图片的格式规矩</h2><p>假设有new.md和new文件夹,目录结构如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">├── new</span><br><span class="line">│   ├── p1.png</span><br><span class="line">│   └── p2.png</span><br><span class="line">└── new.md</span><br></pre></td></tr></table></figure>
+<p>在new.md中引用p1.png的格式严格遵守</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">p1</span>](<span class="link">new/p1.png</span>)</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -662,7 +582,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-06-04 10:49:59" itemprop="dateModified" datetime="2024-06-04T10:49:59+08:00">2024-06-04</time>
+                <time title="Modified: 2024-06-04 19:42:54" itemprop="dateModified" datetime="2024-06-04T19:42:54+08:00">2024-06-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -694,7 +614,7 @@
 <li>new:建立一个新的title.md文件</li>
 </ol>
 <ul>
-<li>配套的png等附件如何存放?如果配置了_config.yml中的default_layout参数则是默认会建立一个title文件夹用于存放title.md需要用到的.png等文件(但默认没存放title.md,可以手工挪进去,也可以不挪进去).</li>
+<li>配套的png等附件如何存放?如果配置了_config.yml中的default_layout参数则是默认会建立一个与title同名的文件夹用于存放title.md需要用到的.png等文件.(而且必须这样存放)</li>
 <li>[options]:<code>[options]</code>主要只使用<code>-p 或者 --path</code>参数用来指示路径.</li>
 <li>路径:title.md会放在根目录&#x2F;source&#x2F;_posts下,这里面存的就是要发出去的文章.可以根据分类在_posts下自由放置在比如”工具篇”的文件夹下,并不影响.</li>
 </ul>
@@ -816,10 +736,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-06-02 10:11:58 / Modified: 21:20:32" itemprop="dateCreated datePublished" datetime="2024-06-02T10:11:58+08:00">2024-06-02</time>
+              <time title="Created: 2024-06-02 10:11:58" itemprop="dateCreated datePublished" datetime="2024-06-02T10:11:58+08:00">2024-06-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-06-04 19:31:13" itemprop="dateModified" datetime="2024-06-04T19:31:13+08:00">2024-06-04</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -847,7 +773,7 @@
       
           <h1 id="1-setup"><a href="#1-setup" class="headerlink" title="1. setup"></a>1. setup</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init &lt;folder&gt;</span><br><span class="line">cd &lt;folder&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
 <p>Once initialized, here’s what your project folder will look like:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.landscape.yml</span><br><span class="line">├── _config.yml | 大部分配置在这里修改</span><br><span class="line">├── db.json</span><br><span class="line">├── node_modules</span><br><span class="line">├── package-lock.json</span><br><span class="line">├── package.json</span><br><span class="line">├── public</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source | .md文件    </span><br><span class="line">└── themes | 配合next主题,优化配置</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.landscape.yml</span><br><span class="line">├── _config.yml # 大部分配置在这里修改</span><br><span class="line">├── db.json</span><br><span class="line">├── node_modules</span><br><span class="line">├── package-lock.json</span><br><span class="line">├── package.json</span><br><span class="line">├── public</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source # .md文件    </span><br><span class="line">└── themes # 存放有next主题,优化配置</span><br></pre></td></tr></table></figure>
 
 <h1 id="2-github-io作为网页"><a href="#2-github-io作为网页" class="headerlink" title="2. github.io作为网页"></a>2. github.io作为网页</h1><ol>
 <li>配置github本地账户(具体的查Git相关笔记).<code>ssh -T git@github.com</code>有响应就是成功</li>
@@ -862,10 +788,10 @@
 <li>在_config.yml中修改为<code>theme: next</code>即可</li>
 <li>下载后现在一共有两个config文件:一个是根目录下的&#x2F;_config.yml称为站点配置文件,另一个一个是&#x2F;themes&#x2F;next&#x2F;_config.yml称为主题配置文件</li>
 </ol>
-<h2 id="3-2-修改”站点配置文件”"><a href="#3-2-修改”站点配置文件”" class="headerlink" title="3.2 修改”站点配置文件”"></a>3.2 修改”站点配置文件”</h2><p>在_config.yml中可以对网页默认配置和站点配置进行设置,<a target="_blank" rel="noopener" href="https://hexo.io/docs/configuration.html">配置目录</a>.比较重要的配置(github配置的忽略):</p>
+<h2 id="3-2-修改”站点配置文件”"><a href="#3-2-修改”站点配置文件”" class="headerlink" title="3.2 修改”站点配置文件”"></a>3.2 修改”站点配置文件”</h2><p>在<code>_config.yml中</code>可以对网页默认配置和站点配置进行设置,<a target="_blank" rel="noopener" href="https://hexo.io/docs/configuration.html">配置目录</a>.比较重要的配置(github配置的忽略):</p>
 <ul>
 <li>title,author,description:网页基础信息</li>
-<li>post_asset_folder:启用资源文件夹,可以存.md文件需要的png等</li>
+<li>post_asset_folder:启用一个和.md文件同名的资源文件夹,可以存.md文件需要的png等(想要在hexo中添加本地图片,还需要更多的操作,具体见”hexo(四)进阶配置”)</li>
 </ul>
 <h2 id="3-3-修改”主题配置文件”"><a href="#3-3-修改”主题配置文件”" class="headerlink" title="3.3 修改”主题配置文件”"></a>3.3 修改”主题配置文件”</h2><ol>
 <li>开启”标签页”和”分类页”<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">scheme:</span> <span class="string">Gemini</span></span><br><span class="line"><span class="attr">darkmode:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span> <span class="comment"># 开启标签页</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span> <span class="comment"># 开启分类页</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br></pre></td></tr></table></figure></li>
@@ -972,11 +898,78 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/05/23/hello-world/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="fengren123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fengren123's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/05/23/hello-world/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-05-23 19:34:30" itemprop="dateCreated datePublished" datetime="2024-05-23T19:34:30+08:00">2024-05-23</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
-  </nav>
 
 
 
@@ -1041,7 +1034,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
