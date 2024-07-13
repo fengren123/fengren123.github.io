@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"fengren123.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="1. 发文章流程12345$ hexo new [option] title$ hexo generate 或者 hexo g$ hexo server 或者 hexo s$ hexo deploy 或者 hexo d$ hexo g &amp; hexo d  new:建立一个新的title.md文件   配套的png等附件如何存放?如果配置了_config.yml中的default_layou">
+  <meta name="description" content="1. 发博客流程12345$ hexo new [option] title$ hexo generate 或者 hexo g$ hexo server 或者 hexo s$ hexo deploy 或者 hexo d$ hexo g &amp; hexo d  hexo new [options] title # 建立一个名为title.md文件 title.md的图片等附件 如果配置了_con">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo(三)写博客&amp;发博客">
 <meta property="og:url" content="https://fengren123.github.io/2024/06/02/tool%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20|%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%B8%89)%E5%86%99%E5%8D%9A%E5%AE%A2&%E5%8F%91%E5%8D%9A%E5%AE%A2/index.html">
 <meta property="og:site_name" content="fengren123&#39;s blog">
-<meta property="og:description" content="1. 发文章流程12345$ hexo new [option] title$ hexo generate 或者 hexo g$ hexo server 或者 hexo s$ hexo deploy 或者 hexo d$ hexo g &amp; hexo d  new:建立一个新的title.md文件   配套的png等附件如何存放?如果配置了_config.yml中的default_layou">
+<meta property="og:description" content="1. 发博客流程12345$ hexo new [option] title$ hexo generate 或者 hexo g$ hexo server 或者 hexo s$ hexo deploy 或者 hexo d$ hexo g &amp; hexo d  hexo new [options] title # 建立一个名为title.md文件 title.md的图片等附件 如果配置了_con">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-02T12:33:24.700Z">
-<meta property="article:modified_time" content="2024-06-04T11:42:54.816Z">
+<meta property="article:modified_time" content="2024-07-13T07:28:55.159Z">
 <meta property="article:author" content="fengren123">
 <meta property="article:tag" content="基础教程">
 <meta property="article:tag" content="hexo">
@@ -193,7 +193,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-06-04 19:42:54" itemprop="dateModified" datetime="2024-06-04T19:42:54+08:00">2024-06-04</time>
+                <time title="Modified: 2024-07-13 15:28:55" itemprop="dateModified" datetime="2024-07-13T15:28:55+08:00">2024-07-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -220,30 +220,50 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="1-发文章流程"><a href="#1-发文章流程" class="headerlink" title="1. 发文章流程"></a>1. 发文章流程</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new [option] title</span><br><span class="line">$ hexo generate 或者 hexo g</span><br><span class="line">$ hexo server 或者 hexo s</span><br><span class="line">$ hexo deploy 或者 hexo d</span><br><span class="line">$ hexo g &amp; hexo d</span><br></pre></td></tr></table></figure>
+        <h1 id="1-发博客流程"><a href="#1-发博客流程" class="headerlink" title="1. 发博客流程"></a>1. 发博客流程</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new [option] title</span><br><span class="line">$ hexo generate 或者 hexo g</span><br><span class="line">$ hexo server 或者 hexo s</span><br><span class="line">$ hexo deploy 或者 hexo d</span><br><span class="line">$ hexo g &amp; hexo d</span><br></pre></td></tr></table></figure>
 <ol>
-<li>new:建立一个新的title.md文件</li>
-</ol>
-<ul>
-<li>配套的png等附件如何存放?如果配置了_config.yml中的default_layout参数则是默认会建立一个与title同名的文件夹用于存放title.md需要用到的.png等文件.(而且必须这样存放)</li>
-<li>[options]:<code>[options]</code>主要只使用<code>-p 或者 --path</code>参数用来指示路径.</li>
-<li>路径:title.md会放在根目录&#x2F;source&#x2F;_posts下,这里面存的就是要发出去的文章.可以根据分类在_posts下自由放置在比如”工具篇”的文件夹下,并不影响.</li>
+<li><code>hexo new [options] title</code> # 建立一个名为title.md文件<ul>
+<li>title.md的图片等附件<ul>
+<li>如果配置了_config.yml中的default_layout参数则是默认会建立一个与title同名的文件夹用于存放title.md需要用到的.png等文件.(而且必须这样存放)</li>
 </ul>
-<ol start="2">
+</li>
+<li>tilte.md的路径<ul>
+<li>title.md会放在根目录&#x2F;source&#x2F;_posts下,这里面存的就是要发出去的文章.可以根据分类在_posts下自由放置在比如”工具篇”的文件夹下,并不影响.</li>
+</ul>
+</li>
+<li>[options]<ul>
+<li><code>[options]</code>主要只使用<code>-p 或者 --path</code>参数用来指示文件建立路径.</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>编辑title.md文件内容</li>
-<li>generate:生成静态文件</li>
-<li>server:启动本地端口预览<br>默认情况下访问网址为:<a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a>.<br><code>$ hexo server -p 4001</code><br>可以重设端口为4001,访问网址为:<a target="_blank" rel="noopener" href="http://localhost:4001/">http://localhost:4001/</a>.</li>
-<li>deploy:把静态文件部署在网页(github.io)上</li>
-<li>其他<br><code>$ hexo g &amp; hexo d</code>可以连续执行两个命令</li>
+<li><code>hexo generate</code> # 生成静态网页文件</li>
+<li><code>hexo server</code> # 启动本地端口预览<ul>
+<li>默认本地预览端口<ul>
+<li>默认端口为4000,访问网址<a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a>.</li>
+</ul>
+</li>
+<li>设置本地预览端口<ul>
+<li>有时候4000端口会被占据或者出错,这时候需要重设预览端口</li>
+<li><code>$ hexo server -p 4001</code> # 可以重设端口为4001</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>hexo deploy</code> # 把静态文件部署在网页(github.io)上</li>
+<li>其他<ul>
+<li><code>$ hexo g &amp; hexo d</code>可以连续执行两个命令</li>
+</ul>
+</li>
 </ol>
-<h1 id="2-写文章"><a href="#2-写文章" class="headerlink" title="2. 写文章"></a>2. 写文章</h1><p>与普通的md文件相比,只是多了一个Front-matter.根据需要写就行了</p>
+<h1 id="2-写博客"><a href="#2-写博客" class="headerlink" title="2. 写博客"></a>2. 写博客</h1><p>与普通的md文件相比,只需要自动或手动添加一个Front-matter(头缀)用于指示信息,如下所示,然后按照正常md文件书写即可.</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">title: hexo(三)写博客&amp;发博客</span><br><span class="line">data: 2024/6/2 20:46:25</span><br><span class="line">updata: # 更新日期</span><br><span class="line">tags: </span><br><span class="line"><span class="bullet">    -</span> 基础教程</span><br><span class="line"><span class="bullet">    -</span> hexo</span><br><span class="line"><span class="bullet">    -</span> 静态博客</span><br><span class="line">categories:</span><br><span class="line"><span class="bullet">    -</span> 工具篇 # 这是一级分类</span><br><span class="line"><span class="section">    - hexo | 搭建静态博客 # 这是二级分类</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
 
-<h1 id="Q-hexo-部署博客到github上，代码更新在github了，但是访问博客内容却没更新？"><a href="#Q-hexo-部署博客到github上，代码更新在github了，但是访问博客内容却没更新？" class="headerlink" title="Q: hexo,部署博客到github上，代码更新在github了，但是访问博客内容却没更新？"></a>Q: hexo,部署博客到github上，代码更新在github了，但是访问博客内容却没更新？</h1><ol>
-<li><code>hexo clean</code>把本地的差分文件清理一下,再<code>hexo g &amp; hexo d</code></li>
-<li>等会儿时间,有时候会需要10分钟以内的更新时间</li>
-<li>浏览器缓存问题,用手机浏览器先看一下对不对</li>
-</ol>
+<h1 id="Q-hexo已经成功部署博客到github后，有时候发了新文章-发现github仓库已经更新了，但是访问博客网址却没更新？"><a href="#Q-hexo已经成功部署博客到github后，有时候发了新文章-发现github仓库已经更新了，但是访问博客网址却没更新？" class="headerlink" title="Q: hexo已经成功部署博客到github后，有时候发了新文章,发现github仓库已经更新了，但是访问博客网址却没更新？"></a>Q: hexo已经成功部署博客到github后，有时候发了新文章,发现github仓库已经更新了，但是访问博客网址却没更新？</h1><pre><code>1. `hexo clean`把本地的差分文件清理一下,再`hexo g &amp; hexo d`
+2. 等会儿时间,有时候会需要10分钟以内的更新时间
+2. 浏览器缓存问题,用手机浏览器先看一下对不对
+</code></pre>
 
     </div>
 
@@ -329,7 +349,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%8F%91%E6%96%87%E7%AB%A0%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">1. 发文章流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%86%99%E6%96%87%E7%AB%A0"><span class="nav-number">2.</span> <span class="nav-text">2. 写文章</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q-hexo-%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2%E5%88%B0github%E4%B8%8A%EF%BC%8C%E4%BB%A3%E7%A0%81%E6%9B%B4%E6%96%B0%E5%9C%A8github%E4%BA%86%EF%BC%8C%E4%BD%86%E6%98%AF%E8%AE%BF%E9%97%AE%E5%8D%9A%E5%AE%A2%E5%86%85%E5%AE%B9%E5%8D%B4%E6%B2%A1%E6%9B%B4%E6%96%B0%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">Q: hexo,部署博客到github上，代码更新在github了，但是访问博客内容却没更新？</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%8F%91%E5%8D%9A%E5%AE%A2%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">1. 发博客流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%86%99%E5%8D%9A%E5%AE%A2"><span class="nav-number">2.</span> <span class="nav-text">2. 写博客</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Q-hexo%E5%B7%B2%E7%BB%8F%E6%88%90%E5%8A%9F%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2%E5%88%B0github%E5%90%8E%EF%BC%8C%E6%9C%89%E6%97%B6%E5%80%99%E5%8F%91%E4%BA%86%E6%96%B0%E6%96%87%E7%AB%A0-%E5%8F%91%E7%8E%B0github%E4%BB%93%E5%BA%93%E5%B7%B2%E7%BB%8F%E6%9B%B4%E6%96%B0%E4%BA%86%EF%BC%8C%E4%BD%86%E6%98%AF%E8%AE%BF%E9%97%AE%E5%8D%9A%E5%AE%A2%E7%BD%91%E5%9D%80%E5%8D%B4%E6%B2%A1%E6%9B%B4%E6%96%B0%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">Q: hexo已经成功部署博客到github后，有时候发了新文章,发现github仓库已经更新了，但是访问博客网址却没更新？</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -343,7 +363,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

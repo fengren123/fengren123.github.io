@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"fengren123.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="1. 建立工作区 hexo建立工作区 123$ hexo init &lt;folder&gt;$ cd &lt;folder&gt;$ npm install 工作区结构   1234567891011.├── _config.landscape.yml├── _config.yml # 大部分配置在这里修改├── db.json├── node_modules├── package-lock.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo(二)建立工作区文件夹">
+<meta property="og:url" content="https://fengren123.github.io/2024/06/02/tool%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20|%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%BA%8C)%E5%BB%BA%E7%AB%8B%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%96%87%E4%BB%B6%E5%A4%B9/index.html">
+<meta property="og:site_name" content="fengren123&#39;s blog">
+<meta property="og:description" content="1. 建立工作区 hexo建立工作区 123$ hexo init &lt;folder&gt;$ cd &lt;folder&gt;$ npm install 工作区结构   1234567891011.├── _config.landscape.yml├── _config.yml # 大部分配置在这里修改├── db.json├── node_modules├── package-lock.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-02T02:11:58.919Z">
+<meta property="article:modified_time" content="2024-07-13T07:45:27.738Z">
+<meta property="article:author" content="fengren123">
+<meta property="article:tag" content="基础教程">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="静态博客">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://fengren123.github.io/2024/06/02/tool%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20|%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%BA%8C)%E5%BB%BA%E7%AB%8B%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%96%87%E4%BB%B6%E5%A4%B9/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-cn'
+  };
+</script>
+
+  <title>hexo(二)建立工作区文件夹 | fengren123's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">fengren123's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/02/tool%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20|%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%BA%8C)%E5%BB%BA%E7%AB%8B%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%96%87%E4%BB%B6%E5%A4%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="fengren123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fengren123's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          hexo(二)建立工作区文件夹
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-02 10:11:58" itemprop="dateCreated datePublished" datetime="2024-06-02T10:11:58+08:00">2024-06-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-07-13 15:45:27" itemprop="dateModified" datetime="2024-07-13T15:45:27+08:00">2024-07-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo-%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">hexo | 搭建静态博客</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="1-建立工作区"><a href="#1-建立工作区" class="headerlink" title="1. 建立工作区"></a>1. 建立工作区</h1><ol>
+<li>hexo建立工作区 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">hexo init &lt;folder&gt;</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> &lt;folder&gt;</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">npm install</span></span><br></pre></td></tr></table></figure></li>
+<li>工作区结构   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.landscape.yml</span><br><span class="line">├── _config.yml # 大部分配置在这里修改</span><br><span class="line">├── db.json</span><br><span class="line">├── node_modules</span><br><span class="line">├── package-lock.json</span><br><span class="line">├── package.json</span><br><span class="line">├── public</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source # 存放.md文件    </span><br><span class="line">└── themes # 存放有next主题,优化配置</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="2-github-io作为博客网页"><a href="#2-github-io作为博客网页" class="headerlink" title="2. github.io作为博客网页"></a>2. github.io作为博客网页</h1><ol>
+<li>本地配置github账户(具体的查Git相关笔记).<code>ssh -T git@github.com</code>有响应就是成功</li>
+<li>修改工作区根目录下<code>_config.yml</code>中的几项,如下所示 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">https://fengren123.github.io/</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">next</span> <span class="comment"># 需要先安装next主题</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">git</span> <span class="comment"># 不要使用github</span></span><br><span class="line">    <span class="attr">repo:</span> <span class="string">git@github.com:fengren123/fengren123.github.io.git</span> <span class="comment"># 使用ssh连接</span></span><br><span class="line">    <span class="attr">branch:</span> <span class="string">main</span> <span class="comment"># 默认main分支</span></span><br><span class="line">    <span class="attr">message:</span> <span class="string">冯梓效add</span> <span class="string">a</span> <span class="string">new</span> <span class="string">blog</span> <span class="comment"># 自动部署commit备注，可不填</span></span><br></pre></td></tr></table></figure></li>
+<li>在Node.js项目(即folder)中安装hexo-deployer-git,这是hexo的git部署插件  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+至此已经成功把网页配置为了github.io</li>
+</ol>
+<h1 id="3-configuration"><a href="#3-configuration" class="headerlink" title="3. configuration"></a>3. configuration</h1><h2 id="3-1-主题替换为next"><a href="#3-1-主题替换为next" class="headerlink" title="3.1 主题替换为next"></a>3.1 主题替换为next</h2><ol>
+<li>下载next主题 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">$ git <span class="built_in">clone</span> https://github.com/next-theme/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></li>
+<li>在<code>_config.yml</code>中修改为<code>theme: next</code>即可</li>
+</ol>
+<ul>
+<li>下载后现在一共有两个config文件:一个是根目录下的&#x2F;_config.yml称为站点配置文件,另一个一个是&#x2F;themes&#x2F;next&#x2F;_config.yml称为主题配置文件</li>
+</ul>
+<h2 id="3-2-修改”站点配置文件”-根目录下-config-yml"><a href="#3-2-修改”站点配置文件”-根目录下-config-yml" class="headerlink" title="3.2 修改”站点配置文件”(根目录下_config.yml)"></a>3.2 修改”站点配置文件”(根目录下_config.yml)</h2><p>在<code>_config.yml中</code>可以对网页默认配置和站点配置进行设置,具体参考<a target="_blank" rel="noopener" href="https://hexo.io/docs/configuration.html">配置目录</a>.比较重要的配置有:</p>
+<ol>
+<li>title,author,description # 网页基础信息</li>
+<li>post_asset_folder # 启用一个和.md文件同名的资源文件夹,可以存.md文件需要的png等(但是想要在hexo中添加本地图片,还需要更多的操作,具体见”hexo(四)进阶配置”)</li>
+</ol>
+<h2 id="3-3-修改”主题配置文件”-next主题下-config-yml"><a href="#3-3-修改”主题配置文件”-next主题下-config-yml" class="headerlink" title="3.3 修改”主题配置文件”(next主题下_config.yml)"></a>3.3 修改”主题配置文件”(next主题下_config.yml)</h2><ol>
+<li>开启”标签页”和”分类页” <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">scheme:</span> <span class="string">Gemini</span></span><br><span class="line"><span class="attr">darkmode:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">menu:</span></span><br><span class="line"><span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line"><span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line"><span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span> <span class="comment"># 开启标签页</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span> <span class="comment"># 开启分类页</span></span><br><span class="line"><span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br></pre></td></tr></table></figure></li>
+<li>手动新建”标签页”和”分类页” # 这样才能在点击”tags”等时知道进入什么对应的页面<ol>
+<li>新建”分类页”(标签页同理)<br> <code>hexo new page &quot;categories&quot;</code>,得到<code>/categories/index.md</code></li>
+<li>修改&#x2F;categories&#x2F;index.md内容<br> 具体如下 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line"><span class="section">type: &quot;categories&quot;</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" rel="tag"># 基础教程</a>
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+              <a href="/tags/%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" rel="tag"># 静态博客</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/06/02/tool%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20%7C%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%B8%80)%E5%AE%89%E8%A3%85/" rel="prev" title="hexo(一)安装">
+      <i class="fa fa-chevron-left"></i> hexo(一)安装
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/06/02/tool%E5%B7%A5%E5%85%B7%E7%AF%87/Git/123/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%BB%BA%E7%AB%8B%E5%B7%A5%E4%BD%9C%E5%8C%BA"><span class="nav-number">1.</span> <span class="nav-text">1. 建立工作区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-github-io%E4%BD%9C%E4%B8%BA%E5%8D%9A%E5%AE%A2%E7%BD%91%E9%A1%B5"><span class="nav-number">2.</span> <span class="nav-text">2. github.io作为博客网页</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-configuration"><span class="nav-number">3.</span> <span class="nav-text">3. configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-%E4%B8%BB%E9%A2%98%E6%9B%BF%E6%8D%A2%E4%B8%BAnext"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 主题替换为next</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E4%BF%AE%E6%94%B9%E2%80%9D%E7%AB%99%E7%82%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E2%80%9D-%E6%A0%B9%E7%9B%AE%E5%BD%95%E4%B8%8B-config-yml"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 修改”站点配置文件”(根目录下_config.yml)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-%E4%BF%AE%E6%94%B9%E2%80%9D%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E2%80%9D-next%E4%B8%BB%E9%A2%98%E4%B8%8B-config-yml"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 修改”主题配置文件”(next主题下_config.yml)</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">fengren123</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fengren123"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fengren123</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
