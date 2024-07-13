@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -24,7 +24,7 @@
 <meta property="og:title" content="fengren123&#39;s blog">
 <meta property="og:url" content="https://fengren123.github.io/index.html">
 <meta property="og:site_name" content="fengren123&#39;s blog">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="fengren123">
 <meta name="twitter:card" content="summary">
 
@@ -37,7 +37,7 @@
     sidebar: "",
     isHome : true,
     isPost : false,
-    lang   : 'en'
+    lang   : 'zh-cn'
   };
 </script>
 
@@ -154,7 +154,997 @@
       
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/07/git/po/README/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="fengren123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fengren123's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/07/git/po/README/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-07 18:20:49" itemprop="dateCreated datePublished" datetime="2024-06-07T18:20:49+08:00">2024-06-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Core-GIT-Translations"><a href="#Core-GIT-Translations" class="headerlink" title="Core GIT Translations"></a>Core GIT Translations</h1><p>This directory holds the translations for the core of Git. This document<br>describes how you can contribute to the effort of enhancing the language<br>coverage and maintaining the translation.</p>
+<p>The localization (l10n) coordinator, Jiang Xin <a href="mailto:&#119;&#x6f;&#x72;&#x6c;&#x64;&#104;&#x65;&#108;&#x6c;&#111;&#x2e;&#x6e;&#x65;&#x74;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;">&#119;&#x6f;&#x72;&#x6c;&#x64;&#104;&#x65;&#108;&#x6c;&#111;&#x2e;&#x6e;&#x65;&#x74;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#99;&#111;&#109;</a>,<br>coordinates our localization effort in the l10n coordinator repository:</p>
+<pre><code>https://github.com/git-l10n/git-po/
+</code></pre>
+<p>We will use XX as an alias to refer to the language translation code in<br>the following paragraphs, for example we use “po&#x2F;XX.po” to refer to the<br>translation file for a specific language. But this doesn’t mean that<br>the language code has only two letters. The language code can be in one<br>of two forms: “ll” or “ll_CC”. Here “ll” is the ISO 639 two-letter<br>language code and “CC” is the ISO 3166 two-letter code for country names<br>and subdivisions. For example: “de” for German language code, “zh_CN”<br>for Simplified Chinese language code.</p>
+<h2 id="Contributing-to-an-existing-translation"><a href="#Contributing-to-an-existing-translation" class="headerlink" title="Contributing to an existing translation"></a>Contributing to an existing translation</h2><p>As a contributor for a language XX, you should first check TEAMS file in<br>this directory to see whether a dedicated repository for your language XX<br>exists. Fork the dedicated repository and start to work if it exists.</p>
+<p>Sometime, contributors may find that the translations of their Git<br>distributions are quite different with the translations of the<br>corresponding version from Git official. This is because some Git<br>distributions (such as from Ubuntu, etc.) have their own l10n workflow.<br>For this case, wrong translations should be reported and fixed through<br>their workflows.</p>
+<h2 id="Creating-a-new-language-translation"><a href="#Creating-a-new-language-translation" class="headerlink" title="Creating a new language translation"></a>Creating a new language translation</h2><p>If you are the first contributor for the language XX, please fork this<br>repository, prepare and&#x2F;or update the translated message file “po&#x2F;XX.po”<br>(described later), and ask the l10n coordinator to pull your work.</p>
+<p>If there are multiple contributors for the same language, please first<br>coordinate among yourselves and nominate the team leader for your<br>language, so that the l10n coordinator only needs to interact with one<br>person per language.</p>
+<h2 id="Translation-Process-Flow"><a href="#Translation-Process-Flow" class="headerlink" title="Translation Process Flow"></a>Translation Process Flow</h2><p>The overall data-flow looks like this:</p>
+<pre><code>+-------------------+             +------------------+
+| Git source code   | ----(2)---&gt; | L10n coordinator |
+| repository        | &lt;---(5)---- | repository       |
++-------------------+             +------------------+
+                |                     |    ^
+               (1)                   (3)  (4)
+                V                     v    |
+           +----------------------------------+
+           |        Language Team XX          |
+           +----------------------------------+
+</code></pre>
+<ul>
+<li><p>Translatable strings are marked in the source file.</p>
+</li>
+<li><p>Language teams can start translation iterations at any time, even<br>before the l10n window opens:</p>
+<ul>
+<li>Pull from the master branch of the source (1)</li>
+<li>Update the message file by running “make po-update PO_FILE&#x3D;po&#x2F;XX.po”</li>
+<li>Translate the message file “po&#x2F;XX.po”</li>
+</ul>
+</li>
+<li><p>The L10n coordinator pulls from source and announces the l10n window<br>open (2)</p>
+</li>
+<li><p>Language team pulls from the l10n coordinator, starts another<br>translation iteration against the l10n coordinator’s tree (3)</p>
+<ul>
+<li>Run “git pull –rebase” from the l10n coordinator</li>
+<li>Update the message file by running “make po-update PO_FILE&#x3D;po&#x2F;XX.po”</li>
+<li>Translate the message file “po&#x2F;XX.po”</li>
+<li>Squash trivial l10n git commits using “git rebase -i”</li>
+</ul>
+</li>
+<li><p>Language team sends pull request to the l10n coordinator (4)</p>
+</li>
+<li><p>L10n coordinator checks and merges</p>
+</li>
+<li><p>L10n coordinator asks the result to be pulled (5).</p>
+</li>
+</ul>
+<h2 id="Dynamically-generated-POT-files"><a href="#Dynamically-generated-POT-files" class="headerlink" title="Dynamically generated POT files"></a>Dynamically generated POT files</h2><p>POT files are templates for l10n contributors to create or update their<br>translation files. We used to have the “po&#x2F;git.pot” file which was<br>generated by the l10n coordinator, but this file had been removed from<br>the tree.</p>
+<p>The two POT files “po&#x2F;git.pot” and “po&#x2F;git-core.pot” can be created<br>dynamically when necessary.</p>
+<p>L10n contributors use “po&#x2F;git.pot” to prepare translations for their<br>languages, but they are not expected to modify it. The “po&#x2F;git.pot” file<br>can be generated manually with the following command:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make po/git.pot</span><br></pre></td></tr></table></figure>
+
+<p>The “po&#x2F;git-core.pot” file is the template for core translations. A core<br>translation is the minimum set of work necessary to complete a<br>translation of a new language. Since there are more than 5000 messages<br>in the full set of template message file “po&#x2F;git.pot” that need to be<br>translated, this is not a piece of cake for new language contributors.</p>
+<p>The “core” template file “po&#x2F;git-core.pot” can be generated manually<br>by running:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make po/git-core.pot</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Initializing-a-“XX-po”-file"><a href="#Initializing-a-“XX-po”-file" class="headerlink" title="Initializing a “XX.po” file"></a>Initializing a “XX.po” file</h2><p>(This is done by the language teams).</p>
+<p>If your language XX does not have translated message file “po&#x2F;XX.po” yet,<br>you add a translation for the first time by running:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make po-init PO_FILE=po/XX.po</span><br></pre></td></tr></table></figure>
+
+<p>where XX is the locale, e.g. “de”, “is”, “pt_BR”, “zh_CN”, etc.</p>
+<p>The newly generated message file “po&#x2F;XX.po” is based on the core pot<br>file “po&#x2F;git-core.pot”, so it contains only a minimal set of messages<br>and it’s a good start for a new language contribution.</p>
+<p>Once you are done testing the translation (see below), commit the result<br>and ask the l10n coordinator to pull from you.</p>
+<h2 id="Updating-a-“XX-po”-file"><a href="#Updating-a-“XX-po”-file" class="headerlink" title="Updating a “XX.po” file"></a>Updating a “XX.po” file</h2><p>(This is done by the language teams).</p>
+<p>If you are replacing translation strings in an existing “XX.po” file to<br>improve the translation, just edit the file.</p>
+<p>If you want to find new translatable strings in source files of upstream<br>repository and propagate them to your “po&#x2F;XX.po”, run command:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make po-update PO_FILE=po/XX.po</span><br></pre></td></tr></table></figure>
+
+<p>It will:</p>
+<ul>
+<li>Call “make po&#x2F;git.pot” to generate new “po&#x2F;git.pot” file</li>
+<li>Call “msgmerge –add-location –backup&#x3D;off -U po&#x2F;XX.po po&#x2F;git.pot”<br>to update your “po&#x2F;XX.po”</li>
+<li>The “–add-location” option for msgmerge will add location lines,<br>and these location lines will help translation tools to locate<br>translation context easily.</li>
+</ul>
+<p>Once you are done testing the translation (see below), it’s better<br>to commit a location-less “po&#x2F;XX.po” file to save repository space<br>and make a user-friendly patch for review.</p>
+<p>To save a location-less “po&#x2F;XX.po” automatically in repository, you<br>can:</p>
+<p>First define a new attribute for “po&#x2F;XX.po” by appending the following<br>line in “.git&#x2F;info&#x2F;attributes”:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/po/XX.po filter=gettext-no-location</span><br></pre></td></tr></table></figure>
+
+<p>Then define the driver for the “gettext-no-location” clean filter to<br>strip out both filenames and locations from the contents as follows:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global filter.gettext-no-location.clean \</span><br><span class="line">           &quot;msgcat --no-location -&quot;</span><br></pre></td></tr></table></figure>
+
+<p>For users who have gettext version 0.20 or higher, it is also possible<br>to define a clean filter to preserve filenames but not locations:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global filter.gettext-no-location.clean \</span><br><span class="line">           &quot;msgcat --add-location=file -&quot;</span><br></pre></td></tr></table></figure>
+
+<p>You’re now ready to ask the l10n coordinator to pull from you.</p>
+<h2 id="Fuzzy-translation"><a href="#Fuzzy-translation" class="headerlink" title="Fuzzy translation"></a>Fuzzy translation</h2><p>Fuzzy translation is a translation marked by comment “fuzzy” to let you<br>know that the translation is out of date because the “msgid” has been<br>changed. A fuzzy translation will be ignored when compiling using “msgfmt”.<br>Fuzzy translation can be marked by hands, but for most cases they are<br>marked automatically when running “msgmerge” to update your “XX.po” file.</p>
+<p>After fixing the corresponding translation, you must remove the “fuzzy”<br>tag in the comment.</p>
+<h2 id="Testing-your-changes"><a href="#Testing-your-changes" class="headerlink" title="Testing your changes"></a>Testing your changes</h2><p>(This is done by the language teams, after creating or updating “XX.po” file).</p>
+<p>Before you submit your changes go back to the top-level and do:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<p>On systems with GNU gettext (i.e. not Solaris) this will compile your<br>changed PO file with <code>msgfmt --check</code>, the –check option flags many<br>common errors, e.g. missing printf format strings, or translated<br>messages that deviate from the originals in whether they begin&#x2F;end<br>with a newline or not.</p>
+<p>L10n coordinator will check your contributions using a helper program<br>(see “PO helper” section below):</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git-po-helper check-po po/XX.po</span><br><span class="line">git-po-helper check-commits &lt;rev-list-opts&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Marking-strings-for-translation"><a href="#Marking-strings-for-translation" class="headerlink" title="Marking strings for translation"></a>Marking strings for translation</h2><p>(This is done by the core developers).</p>
+<p>Before strings can be translated they first have to be marked for<br>translation.</p>
+<p>Git uses an internationalization interface that wraps the system’s<br>gettext library, so most of the advice in your gettext documentation<br>(on GNU systems <code>info gettext</code> in a terminal) applies.</p>
+<p>General advice:</p>
+<ul>
+<li><p>Don’t mark everything for translation, only strings which will be<br>read by humans (the porcelain interface) should be translated.</p>
+<p>The output from Git’s plumbing utilities will primarily be read by<br>programs and would break scripts under non-C locales if it was<br>translated. Plumbing strings should not be translated, since<br>they’re part of Git’s API.</p>
+</li>
+<li><p>Adjust the strings so that they’re easy to translate. Most of the<br>advice in <code>info &#39;(gettext)Preparing Strings&#39;</code> applies here.</p>
+</li>
+<li><p>Strings referencing numbers of items may need to be split into singular and<br>plural forms; see the Q_() wrapper in the C sub-section below for an<br>example.</p>
+</li>
+<li><p>If something is unclear or ambiguous you can use a “TRANSLATORS”<br>comment to tell the translators what to make of it. These will be<br>extracted by xgettext(1) and put in the “po&#x2F;*.po” files, e.g. from<br>git-am.sh:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">TRANSLATORS: Make sure to include [y], [n], [e], [v] and [a]</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="keyword">in</span> your translation. The program will only accept English</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">input at this point.</span></span><br><span class="line">gettext &quot;Apply? [y]es/[n]o/[e]dit/[v]iew patch/[a]ccept all &quot;</span><br></pre></td></tr></table></figure>
+
+<p>Or in C, from builtin&#x2F;revert.c:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* TRANSLATORS: %s will be &quot;revert&quot; or &quot;cherry-pick&quot; */</span></span><br><span class="line">die(_(<span class="string">&quot;%s: Unable to write new index file&quot;</span>), action_name(opts));</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>We provide wrappers for C, Shell and Perl programs. Here’s how they’re<br>used:</p>
+<h3 id="C"><a href="#C" class="headerlink" title="C"></a>C</h3><p>Include builtin.h at the top, it’ll pull in gettext.h, which<br>defines the gettext interface. Consult with the list if you need to<br>use gettext.h directly.</p>
+<p>The C interface is a subset of the normal GNU gettext<br>interface. We currently export these functions:</p>
+<ul>
+<li><p>_()</p>
+<p>Mark and translate a string. E.g.:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(_(<span class="string">&quot;HEAD is now at %s&quot;</span>), hex);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Q_()</p>
+<p>Mark and translate a plural string. E.g.:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(Q_(<span class="string">&quot;%d commit&quot;</span>, <span class="string">&quot;%d commits&quot;</span>, number_of_commits));</span><br></pre></td></tr></table></figure>
+
+<p>This is just a wrapper for the ngettext() function.</p>
+</li>
+<li><p>N_()</p>
+<p>A no-op pass-through macro for marking strings inside static<br>initializations, e.g.:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="type">char</span> *reset_type_names[] = &#123;</span><br><span class="line">    N_(<span class="string">&quot;mixed&quot;</span>), N_(<span class="string">&quot;soft&quot;</span>), N_(<span class="string">&quot;hard&quot;</span>), N_(<span class="string">&quot;merge&quot;</span>), N_(<span class="string">&quot;keep&quot;</span>), <span class="literal">NULL</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>And then, later:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">die(_(<span class="string">&quot;%s reset is not allowed in a bare repository&quot;</span>),</span><br><span class="line">      _(reset_type_names[reset_type]));</span><br></pre></td></tr></table></figure>
+
+<p>Here <code>_()</code> couldn’t have statically determined what the translation<br>string will be, but since it was already marked for translation<br>with <code>N_()</code> the look-up in the message catalog will succeed.</p>
+</li>
+</ul>
+<h3 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h3><p>The Git gettext shell interface is just a wrapper for<br>gettext.sh. Import it right after git-sh-setup like this:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">. git-sh-setup</span><br><span class="line">. git-sh-i18n</span><br></pre></td></tr></table></figure>
+
+<p>And then use the <code>gettext</code> or <code>eval_gettext</code> functions:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">For constant interface messages:</span></span><br><span class="line">gettext &quot;A message for the user&quot;; echo</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">To interpolate variables:</span></span><br><span class="line">details=&quot;oh noes&quot;</span><br><span class="line">eval_gettext &quot;An error occurred: \$details&quot;; echo</span><br></pre></td></tr></table></figure>
+
+<p>In addition we have wrappers for messages that end with a trailing<br>newline. I.e. you could write the above as:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">For constant interface messages:</span></span><br><span class="line">gettextln &quot;A message for the user&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">To interpolate variables:</span></span><br><span class="line">details=&quot;oh noes&quot;</span><br><span class="line">eval_gettextln &quot;An error occurred: \$details&quot;</span><br></pre></td></tr></table></figure>
+
+<p>More documentation about the interface is available in the GNU info<br>page: <code>info &#39;(gettext)sh&#39;</code>. Looking at git-am.sh (the first shell<br>command to be translated) for examples is also useful:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log --reverse -p --grep=i18n git-am.sh</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Perl"><a href="#Perl" class="headerlink" title="Perl"></a>Perl</h3><p>The Git::I18N module provides a limited subset of the<br>Locale::Messages functionality, e.g.:</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> Git::I18N;</span><br><span class="line"><span class="keyword">print</span> _<span class="number">_</span>(<span class="string">&quot;Welcome to Git!\n&quot;</span>);</span><br><span class="line"><span class="keyword">printf</span> _<span class="number">_</span>(<span class="string">&quot;The following error occurred: %s\n&quot;</span>), $error;</span><br></pre></td></tr></table></figure>
+
+<p>Run <code>perldoc perl/Git/I18N.pm</code> for more info.</p>
+<h2 id="Testing-marked-strings"><a href="#Testing-marked-strings" class="headerlink" title="Testing marked strings"></a>Testing marked strings</h2><p>Git’s tests are run under <code>LANG=C LC_ALL=C</code>. So the tests do not need be<br>changed to account for translations as they’re added.</p>
+<h2 id="PO-helper"><a href="#PO-helper" class="headerlink" title="PO helper"></a>PO helper</h2><p>To make the maintenance of “XX.po” easier, the l10n coordinator and l10n<br>team leaders can use a helper program named “git-po-helper”. It is a<br>wrapper to gettext suite, specifically written for the purpose of Git<br>l10n workflow.</p>
+<p>To build and install the helper program from source, see<br><a target="_blank" rel="noopener" href="https://github.com/git-l10n/git-po-helper#readme">git-po-helper&#x2F;README</a>.</p>
+<h2 id="Conventions"><a href="#Conventions" class="headerlink" title="Conventions"></a>Conventions</h2><p>There are some conventions that l10n contributors must follow:</p>
+<ul>
+<li><p>The subject of each l10n commit should be prefixed with “l10n: “.</p>
+</li>
+<li><p>Do not use non-ASCII characters in the subject of a commit.</p>
+</li>
+<li><p>The length of commit subject (first line of the commit log) should<br>be no more than 50 characters, and the length of other lines of the<br>commit log should be no more than 72 characters.</p>
+</li>
+<li><p>Add “Signed-off-by” trailer to your commit log, like other commits<br>in Git. You can automatically add the trailer by committing with<br>the following command:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -s</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Check syntax with “msgfmt” or the following command before creating<br>your commit:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git-po-helper check-po &lt;XX.po&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Squash trivial commits to make history clear.</p>
+</li>
+<li><p>DO NOT edit files outside “po&#x2F;“ directory.</p>
+</li>
+<li><p>Other subsystems (“git-gui”, “gitk”, and Git itself) have their<br>own workflow. See <a href="Documentation/SubmittingPatches">Documentation&#x2F;SubmittingPatches</a> for<br>instructions on how to contribute patches to these subsystems.</p>
+</li>
+</ul>
+<p>To contribute for a new l10n language, contributor should follow<br>additional conventions:</p>
+<ul>
+<li><p>Initialize proper filename of the “XX.po” file conforming to<br>iso-639 and iso-3166.</p>
+</li>
+<li><p>Must complete a minimal translation based on the “Core<br>translation”. See that section above.</p>
+</li>
+<li><p>Add a new entry in the “po&#x2F;TEAMS” file with proper format, and check<br>the syntax of “po&#x2F;TEAMS” by running the following command:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git-po-helper team --check</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/07/git/git-gui/README/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="fengren123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fengren123's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/07/git/git-gui/README/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-07 18:20:49" itemprop="dateCreated datePublished" datetime="2024-06-07T18:20:49+08:00">2024-06-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Git-GUI-A-graphical-user-interface-for-Git"><a href="#Git-GUI-A-graphical-user-interface-for-Git" class="headerlink" title="Git GUI - A graphical user interface for Git"></a>Git GUI - A graphical user interface for Git</h1><p>Git GUI allows you to use the <a target="_blank" rel="noopener" href="https://git-scm.com/">Git source control management<br>tools</a> via a GUI. This includes staging, committing,<br>adding, pushing, etc. It can also be used as a blame viewer, a tree browser,<br>and a citool (make exactly one commit before exiting and returning to shell).<br>More details about Git GUI can be found in its manual page by either running<br><code>man git-gui</code>, or by visiting the <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-gui">online manual<br>page</a>.</p>
+<p>Git GUI was initially written by Shawn O. Pearce, and is distributed with the<br>standard Git installation.</p>
+<h1 id="Building-and-installing"><a href="#Building-and-installing" class="headerlink" title="Building and installing"></a>Building and installing</h1><p>You need to have the following dependencies installed before you begin:</p>
+<ul>
+<li>Git</li>
+<li>Tcl</li>
+<li>Tk</li>
+<li>wish</li>
+<li>Gitk (needed for browsing history)</li>
+<li>msgfmt</li>
+</ul>
+<p>Most of Git GUI is written in Tcl, so there is no compilation involved. Still,<br>some things do need to be done (mostly some substitutions), so you do need to<br>“build” it.</p>
+<p>You can build Git GUI using:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<p>And then install it using:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p>You probably need to have root&#x2F;admin permissions to install.</p>
+<h1 id="Contributing"><a href="#Contributing" class="headerlink" title="Contributing"></a>Contributing</h1><p>The project is currently maintained by Pratyush Yadav over at<br><a target="_blank" rel="noopener" href="https://github.com/prati0100/git-gui">https://github.com/prati0100/git-gui</a>. Even though the project is hosted at<br>GitHub, the development does not happen over GitHub Issues and Pull Requests.<br>Instead, an email based workflow is used. The Git mailing list<br><a href="mailto:git@vger.kernel.org">git@vger.kernel.org</a> is where the patches are<br>discussed and reviewed.</p>
+<p>More information about the Git mailing list and instructions to subscribe can<br>be found <a target="_blank" rel="noopener" href="https://git.wiki.kernel.org/index.php/GitCommunity">here</a>.</p>
+<h2 id="Sending-your-changes"><a href="#Sending-your-changes" class="headerlink" title="Sending your changes"></a>Sending your changes</h2><p>Since the development happens over email, you need to send in your commits in<br>text format. Commits can be converted to emails via the two tools provided by<br>Git: <code>git-send-email</code> and <code>git-format-patch</code>.</p>
+<p>You can use <code>git-format-patch</code> to generate patches in mbox format from your<br>commits that can then be sent via email. Let’s say you are working on a branch<br>called ‘foo’ that was created on top of ‘master’. You can run:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git format-patch -o output_dir master..foo</span><br></pre></td></tr></table></figure>
+
+<p>to convert all the extra commits in ‘foo’ into a set of patches saved in the<br>folder <code>output_dir</code>.</p>
+<p>If you are sending multiple patches, it is recommended to include a cover<br>letter. A cover letter is an email explaining in brief what the series is<br>supposed to do. A cover letter template can be generated by passing<br><code>--cover-letter</code> to <code>git-format-patch</code>.</p>
+<p>After you send your patches, you might get a review suggesting some changes.<br>Make those changes, and re-send your patch(es) in reply to the first patch of<br>your initial version. Also please mention the version of the patch. This can be<br>done by passing <code>-v X</code> to <code>git-format-patch</code>, where ‘X’ is the version number<br>of the patch(es).</p>
+<h3 id="Using-git-send-email"><a href="#Using-git-send-email" class="headerlink" title="Using git-send-email"></a>Using git-send-email</h3><p>You can use <code>git-send-email</code> to send patches generated via <code>git-format-patch</code>.<br>While you can directly send patches via <code>git-send-email</code>, it is recommended<br>that you first use <code>git-format-patch</code> to generate the emails, audit them, and<br>then send them via <code>git-send-email</code>.</p>
+<p>A pretty good guide to configuring and using <code>git-send-email</code> can be found<br><a target="_blank" rel="noopener" href="https://www.freedesktop.org/wiki/Software/PulseAudio/HowToUseGitSendEmail/">here</a>.</p>
+<h3 id="Using-your-email-client"><a href="#Using-your-email-client" class="headerlink" title="Using your email client"></a>Using your email client</h3><p>If your email client supports sending mbox format emails, you can use<br><code>git-format-patch</code> to get an mbox file for each commit, and then send them. If<br>there is more than one patch in the series, then all patches after the first<br>patch (or the cover letter) need to be sent as replies to the first.<br><code>git-send-email</code> does this by default.</p>
+<h3 id="Using-GitGitGadget"><a href="#Using-GitGitGadget" class="headerlink" title="Using GitGitGadget"></a>Using GitGitGadget</h3><p>Since some people prefer a GitHub pull request based workflow, they can use<br><a target="_blank" rel="noopener" href="https://gitgitgadget.github.io/">GitGitGadget</a> to send in patches. The tool<br>was originally written for sending patches to the Git project, but it now also<br>supports sending patches for git-gui.</p>
+<p>Instructions for using GitGitGadget to send git-gui patches, courtesy of<br>Johannes Schindelin:</p>
+<p>If you don’t already have a fork of the <a target="_blank" rel="noopener" href="https://github.com/git/git">git&#x2F;git</a><br>repo, you need to make one. Then clone your fork:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/&lt;your-username&gt;/git</span><br></pre></td></tr></table></figure>
+
+<p>Then add GitGitGadget as a remote:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add gitgitgadget https://github.com/gitgitgadget/git</span><br></pre></td></tr></table></figure>
+
+<p>Then fetch the git-gui branch:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git fetch gitgitgadget git-gui/master</span><br></pre></td></tr></table></figure>
+
+<p>Then create a new branch based on git-gui&#x2F;master:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b &lt;your-branch-name&gt; git-gui/master</span><br></pre></td></tr></table></figure>
+
+<p>Make whatever commits you need to, push them to your fork, and then head over<br>to <a target="_blank" rel="noopener" href="https://github.com/gitgitgadget/git/pulls">https://github.com/gitgitgadget/git/pulls</a> and open a Pull Request targeting<br>git-gui&#x2F;master.</p>
+<p>GitGitGadget will welcome you with a (hopefully) helpful message.</p>
+<h2 id="Signing-off"><a href="#Signing-off" class="headerlink" title="Signing off"></a>Signing off</h2><p>You need to sign off your commits before sending them to the list. You can do<br>that by passing the <code>-s</code> option to <code>git-commit</code>. You can also use the “Sign<br>Off” option in Git GUI.</p>
+<p>A sign-off is a simple ‘Signed-off-by: A U Thor &lt;<a href="mailto:&#97;&#x75;&#116;&#104;&#x6f;&#114;&#x40;&#101;&#120;&#97;&#x6d;&#112;&#x6c;&#101;&#46;&#99;&#x6f;&#109;">&#97;&#x75;&#116;&#104;&#x6f;&#114;&#x40;&#101;&#120;&#97;&#x6d;&#112;&#x6c;&#101;&#46;&#99;&#x6f;&#109;</a>&gt;‘ line at<br>the end of the commit message, after your explanation of the commit.</p>
+<p>A sign-off means that you are legally allowed to send the code, and it serves<br>as a certificate of origin. More information can be found at<br><a target="_blank" rel="noopener" href="https://developercertificate.org/">developercertificate.org</a>.</p>
+<h2 id="Responding-to-review-comments"><a href="#Responding-to-review-comments" class="headerlink" title="Responding to review comments"></a>Responding to review comments</h2><p>It is quite likely your patches will get review comments. Those comments are<br>sent on the Git mailing list as replies to your patch, and you will usually be<br>Cc’ed in those replies.</p>
+<p>You are expected to respond by either explaining your code further to convince<br>the reviewer what you are doing is correct, or acknowledge the comments and<br>re-send the patches with those comments addressed.</p>
+<p>Some tips for those not familiar with communication on a mailing list:</p>
+<ul>
+<li>Use only plain text emails. No HTML at all.</li>
+<li>Wrap lines at around 75 characters.</li>
+<li>Do not send attachments. If you do need to send some files, consider using a<br>hosting service, and paste the link in your email.</li>
+<li>Do not <a target="_blank" rel="noopener" href="http://www.idallen.com/topposting.html">top post</a>.</li>
+<li>Always “reply all”. Keep all correspondents and the list in Cc. If you reply<br>directly to a reviewer, and not Cc the list, other people would not be able<br>to chime in.</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/07/git/contrib/vscode/README/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="fengren123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fengren123's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/07/git/contrib/vscode/README/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-07 18:20:49" itemprop="dateCreated datePublished" datetime="2024-06-07T18:20:49+08:00">2024-06-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Configuration-for-VS-Code"><a href="#Configuration-for-VS-Code" class="headerlink" title="Configuration for VS Code"></a>Configuration for VS Code</h1><p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/">VS Code</a> is a lightweight but powerful source<br>code editor which runs on your desktop and is available for<br><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/setup/windows">Windows</a>,<br><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/setup/mac">macOS</a> and<br><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/setup/linux">Linux</a>. Among other languages,<br>it has <a target="_blank" rel="noopener" href="https://github.com/Microsoft/vscode-cpptools">support for C&#x2F;C++ via an extension</a> with<br><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/editor/debugging">debugging support</a></p>
+<p>To get help about “how to personalize your settings” read:<br><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/getstarted/settings">How to set up your settings</a></p>
+<p>To start developing Git with VS Code, simply run the Unix shell script called<br><code>init.sh</code> in this directory, which creates the configuration files in<br><code>.vscode/</code> that VS Code consumes. <code>init.sh</code> needs access to <code>make</code> and <code>gcc</code>,<br>so run the script in a Git SDK shell if you are using Windows.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/07/git/README/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="fengren123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fengren123's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/07/git/README/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-07 18:20:49" itemprop="dateCreated datePublished" datetime="2024-06-07T18:20:49+08:00">2024-06-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://github.com/git/git/actions?query=branch:master+event:push"><img src="https://github.com/git/git/workflows/CI/badge.svg" alt="Build status"></a></p>
+<h1 id="Git-fast-scalable-distributed-revision-control-system"><a href="#Git-fast-scalable-distributed-revision-control-system" class="headerlink" title="Git - fast, scalable, distributed revision control system"></a>Git - fast, scalable, distributed revision control system</h1><p>Git is a fast, scalable, distributed revision control system with an<br>unusually rich command set that provides both high-level operations<br>and full access to internals.</p>
+<p>Git is an Open Source project covered by the GNU General Public<br>License version 2 (some parts of it are under different licenses,<br>compatible with the GPLv2). It was originally written by Linus<br>Torvalds with help of a group of hackers around the net.</p>
+<p>Please read the file <a href="INSTALL">INSTALL</a> for installation instructions.</p>
+<p>Many Git online resources are accessible from <a target="_blank" rel="noopener" href="https://git-scm.com/">https://git-scm.com/</a><br>including full documentation and Git related tools.</p>
+<p>See <a href="Documentation/gittutorial.txt">Documentation&#x2F;gittutorial.txt</a> to get started, then see<br><a href="Documentation/giteveryday.txt">Documentation&#x2F;giteveryday.txt</a> for a useful minimum set of commands, and<br><code>Documentation/git-&lt;commandname&gt;.txt</code> for documentation of each command.<br>If git has been correctly installed, then the tutorial can also be<br>read with <code>man gittutorial</code> or <code>git help tutorial</code>, and the<br>documentation of each command with <code>man git-&lt;commandname&gt;</code> or <code>git help &lt;commandname&gt;</code>.</p>
+<p>CVS users may also want to read <a href="Documentation/gitcvs-migration.txt">Documentation&#x2F;gitcvs-migration.txt</a><br>(<code>man gitcvs-migration</code> or <code>git help cvs-migration</code> if git is<br>installed).</p>
+<p>The user discussion and development of Git take place on the Git<br>mailing list – everyone is welcome to post bug reports, feature<br>requests, comments and patches to <a href="mailto:&#x67;&#105;&#x74;&#64;&#118;&#x67;&#101;&#114;&#x2e;&#107;&#101;&#x72;&#110;&#101;&#x6c;&#46;&#x6f;&#x72;&#103;">&#x67;&#105;&#x74;&#64;&#118;&#x67;&#101;&#114;&#x2e;&#107;&#101;&#x72;&#110;&#101;&#x6c;&#46;&#x6f;&#x72;&#103;</a> (read<br><a href="Documentation/SubmittingPatches">Documentation&#x2F;SubmittingPatches</a> for instructions on patch submission<br>and <a href="Documentation/CodingGuidelines">Documentation&#x2F;CodingGuidelines</a>).</p>
+<p>Those wishing to help with error message, usage and informational message<br>string translations (localization l10) should see <a href="po/README.md">po&#x2F;README.md</a><br>(a <code>po</code> file is a Portable Object file that holds the translations).</p>
+<p>To subscribe to the list, send an email to <a href="mailto:&#103;&#x69;&#116;&#x2b;&#115;&#117;&#98;&#x73;&#x63;&#x72;&#105;&#98;&#x65;&#x40;&#x76;&#103;&#101;&#x72;&#46;&#107;&#x65;&#x72;&#110;&#x65;&#x6c;&#46;&#111;&#114;&#x67;">&#103;&#x69;&#116;&#x2b;&#115;&#117;&#98;&#x73;&#x63;&#x72;&#105;&#98;&#x65;&#x40;&#x76;&#103;&#101;&#x72;&#46;&#107;&#x65;&#x72;&#110;&#x65;&#x6c;&#46;&#111;&#114;&#x67;</a><br>(see <a target="_blank" rel="noopener" href="https://subspace.kernel.org/subscribing.html">https://subspace.kernel.org/subscribing.html</a> for details). The mailing<br>list archives are available at <a target="_blank" rel="noopener" href="https://lore.kernel.org/git/">https://lore.kernel.org/git/</a>,<br><a target="_blank" rel="noopener" href="https://marc.info/?l=git">https://marc.info/?l=git</a> and other archival sites.</p>
+<p>Issues which are security relevant should be disclosed privately to<br>the Git Security mailing list <a href="mailto:&#x67;&#x69;&#x74;&#x2d;&#x73;&#101;&#99;&#117;&#x72;&#x69;&#x74;&#x79;&#x40;&#103;&#x6f;&#x6f;&#103;&#108;&#x65;&#x67;&#x72;&#x6f;&#117;&#112;&#x73;&#46;&#99;&#x6f;&#x6d;">&#x67;&#x69;&#x74;&#x2d;&#x73;&#101;&#99;&#117;&#x72;&#x69;&#x74;&#x79;&#x40;&#103;&#x6f;&#x6f;&#103;&#108;&#x65;&#x67;&#x72;&#x6f;&#117;&#112;&#x73;&#46;&#99;&#x6f;&#x6d;</a>.</p>
+<p>The maintainer frequently sends the “What’s cooking” reports that<br>list the current status of various development topics to the mailing<br>list.  The discussion following them give a good reference for<br>project status, development direction and remaining tasks.</p>
+<p>The name “git” was given by Linus Torvalds when he wrote the very<br>first version. He described the tool as “the stupid content tracker”<br>and the name as (depending on your mood):</p>
+<ul>
+<li>random three-letter combination that is pronounceable, and not<br>actually used by any common UNIX command.  The fact that it is a<br>mispronunciation of “get” may or may not be relevant.</li>
+<li>stupid. contemptible and despicable. simple. Take your pick from the<br>dictionary of slang.</li>
+<li>“global information tracker”: you’re in a good mood, and it actually<br>works for you. Angels sing, and a light suddenly fills the room.</li>
+<li>“goddamn idiotic truckload of sh*t”: when it breaks</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/07/git/SECURITY/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="fengren123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fengren123's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/07/git/SECURITY/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-07 18:20:49" itemprop="dateCreated datePublished" datetime="2024-06-07T18:20:49+08:00">2024-06-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Security-Policy"><a href="#Security-Policy" class="headerlink" title="Security Policy"></a>Security Policy</h1><h2 id="Reporting-a-vulnerability"><a href="#Reporting-a-vulnerability" class="headerlink" title="Reporting a vulnerability"></a>Reporting a vulnerability</h2><p>Please send a detailed mail to <a href="mailto:&#x67;&#105;&#116;&#x2d;&#115;&#101;&#99;&#117;&#114;&#105;&#116;&#121;&#64;&#103;&#111;&#x6f;&#x67;&#x6c;&#x65;&#103;&#114;&#x6f;&#x75;&#112;&#x73;&#x2e;&#99;&#111;&#x6d;">&#x67;&#105;&#116;&#x2d;&#115;&#101;&#99;&#117;&#114;&#105;&#116;&#121;&#64;&#103;&#111;&#x6f;&#x67;&#x6c;&#x65;&#103;&#114;&#x6f;&#x75;&#112;&#x73;&#x2e;&#99;&#111;&#x6d;</a> to<br>report vulnerabilities in Git.</p>
+<p>Even when unsure whether the bug in question is an exploitable<br>vulnerability, it is recommended to send the report to<br><a href="mailto:&#x67;&#x69;&#116;&#x2d;&#115;&#101;&#99;&#x75;&#114;&#x69;&#x74;&#121;&#64;&#x67;&#x6f;&#111;&#103;&#x6c;&#101;&#103;&#x72;&#111;&#117;&#x70;&#115;&#x2e;&#99;&#x6f;&#109;">&#x67;&#x69;&#116;&#x2d;&#115;&#101;&#99;&#x75;&#114;&#x69;&#x74;&#121;&#64;&#x67;&#x6f;&#111;&#103;&#x6c;&#101;&#103;&#x72;&#111;&#117;&#x70;&#115;&#x2e;&#99;&#x6f;&#109;</a> (and obviously not to discuss the<br>issue anywhere else).</p>
+<p>Vulnerabilities are expected to be discussed <em>only</em> on that<br>list, and not in public, until the official announcement on the<br>Git mailing list on the release date.</p>
+<p>Examples for details to include:</p>
+<ul>
+<li>Ideally a short description (or a script) to demonstrate an<br>exploit.</li>
+<li>The affected platforms and scenarios (the vulnerability might<br>only affect setups with case-sensitive file systems, for<br>example).</li>
+<li>The name and affiliation of the security researchers who are<br>involved in the discovery, if any.</li>
+<li>Whether the vulnerability has already been disclosed.</li>
+<li>How long an embargo would be required to be safe.</li>
+</ul>
+<h2 id="Supported-Versions"><a href="#Supported-Versions" class="headerlink" title="Supported Versions"></a>Supported Versions</h2><p>There are no official “Long Term Support” versions in Git.<br>Instead, the maintenance track (i.e. the versions based on the<br>most recently published feature release, also known as “.0”<br>version) sees occasional updates with bug fixes.</p>
+<p>Fixes to vulnerabilities are made for the maintenance track for<br>the latest feature release and merged up to the in-development<br>branches. The Git project makes no formal guarantee for any<br>older maintenance tracks to receive updates. In practice,<br>though, critical vulnerability fixes are applied not only to the<br>most recent track, but to at least a couple more maintenance<br>tracks.</p>
+<p>This is typically done by making the fix on the oldest and still<br>relevant maintenance track, and merging it upwards to newer and<br>newer maintenance tracks.</p>
+<p>For example, v2.24.1 was released to address a couple of<br><a target="_blank" rel="noopener" href="https://cve.mitre.org/">CVEs</a>, and at the same time v2.14.6,<br>v2.15.4, v2.16.6, v2.17.3, v2.18.2, v2.19.3, v2.20.2, v2.21.1,<br>v2.22.2 and v2.23.1 were released.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/07/git/CODE_OF_CONDUCT/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="fengren123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fengren123's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/07/git/CODE_OF_CONDUCT/" class="post-title-link" itemprop="url">Untitled</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-07 18:20:49" itemprop="dateCreated datePublished" datetime="2024-06-07T18:20:49+08:00">2024-06-07</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Git-Code-of-Conduct"><a href="#Git-Code-of-Conduct" class="headerlink" title="Git Code of Conduct"></a>Git Code of Conduct</h1><p>This code of conduct outlines our expectations for participants within<br>the Git community, as well as steps for reporting unacceptable behavior.<br>We are committed to providing a welcoming and inspiring community for<br>all and expect our code of conduct to be honored. Anyone who violates<br>this code of conduct may be banned from the community.</p>
+<h2 id="Our-Pledge"><a href="#Our-Pledge" class="headerlink" title="Our Pledge"></a>Our Pledge</h2><p>We as members, contributors, and leaders pledge to make participation in our<br>community a harassment-free experience for everyone, regardless of age, body<br>size, visible or invisible disability, ethnicity, sex characteristics, gender<br>identity and expression, level of experience, education, socio-economic status,<br>nationality, personal appearance, race, religion, or sexual identity<br>and orientation.</p>
+<p>We pledge to act and interact in ways that contribute to an open, welcoming,<br>diverse, inclusive, and healthy community.</p>
+<h2 id="Our-Standards"><a href="#Our-Standards" class="headerlink" title="Our Standards"></a>Our Standards</h2><p>Examples of behavior that contributes to a positive environment for our<br>community include:</p>
+<ul>
+<li>Demonstrating empathy and kindness toward other people</li>
+<li>Being respectful of differing opinions, viewpoints, and experiences</li>
+<li>Giving and gracefully accepting constructive feedback</li>
+<li>Accepting responsibility and apologizing to those affected by our mistakes,<br>and learning from the experience</li>
+<li>Focusing on what is best not just for us as individuals, but for the<br>overall community</li>
+</ul>
+<p>Examples of unacceptable behavior include:</p>
+<ul>
+<li>The use of sexualized language or imagery, and sexual attention or<br>advances of any kind</li>
+<li>Trolling, insulting or derogatory comments, and personal or political attacks</li>
+<li>Public or private harassment</li>
+<li>Publishing others’ private information, such as a physical or email<br>address, without their explicit permission</li>
+<li>Other conduct which could reasonably be considered inappropriate in a<br>professional setting</li>
+</ul>
+<h2 id="Enforcement-Responsibilities"><a href="#Enforcement-Responsibilities" class="headerlink" title="Enforcement Responsibilities"></a>Enforcement Responsibilities</h2><p>Community leaders are responsible for clarifying and enforcing our standards of<br>acceptable behavior and will take appropriate and fair corrective action in<br>response to any behavior that they deem inappropriate, threatening, offensive,<br>or harmful.</p>
+<p>Community leaders have the right and responsibility to remove, edit, or reject<br>comments, commits, code, wiki edits, issues, and other contributions that are<br>not aligned to this Code of Conduct, and will communicate reasons for moderation<br>decisions when appropriate.</p>
+<h2 id="Scope"><a href="#Scope" class="headerlink" title="Scope"></a>Scope</h2><p>This Code of Conduct applies within all community spaces, and also applies when<br>an individual is officially representing the community in public spaces.<br>Examples of representing our community include using an official e-mail address,<br>posting via an official social media account, or acting as an appointed<br>representative at an online or offline event.</p>
+<h2 id="Enforcement"><a href="#Enforcement" class="headerlink" title="Enforcement"></a>Enforcement</h2><p>Instances of abusive, harassing, or otherwise unacceptable behavior may be<br>reported to the community leaders responsible for enforcement at<br><a href="mailto:&#103;&#105;&#116;&#x40;&#x73;&#102;&#99;&#x6f;&#110;&#x73;&#101;&#114;&#x76;&#97;&#x6e;&#99;&#x79;&#46;&#111;&#x72;&#103;">&#103;&#105;&#116;&#x40;&#x73;&#102;&#99;&#x6f;&#110;&#x73;&#101;&#114;&#x76;&#97;&#x6e;&#99;&#x79;&#46;&#111;&#x72;&#103;</a>, or individually:</p>
+<ul>
+<li>Ævar Arnfjörð Bjarmason <a href="mailto:&#x61;&#118;&#97;&#114;&#97;&#x62;&#x40;&#103;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x61;&#118;&#97;&#114;&#97;&#x62;&#x40;&#103;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></li>
+<li>Christian Couder <a href="mailto:&#99;&#x68;&#114;&#105;&#x73;&#116;&#x69;&#x61;&#x6e;&#x2e;&#x63;&#x6f;&#117;&#x64;&#101;&#x72;&#x40;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;">&#99;&#x68;&#114;&#105;&#x73;&#116;&#x69;&#x61;&#x6e;&#x2e;&#x63;&#x6f;&#117;&#x64;&#101;&#x72;&#x40;&#x67;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a></li>
+<li>Junio C Hamano <a href="mailto:&#x67;&#x69;&#116;&#x73;&#x74;&#101;&#x72;&#64;&#112;&#x6f;&#x62;&#x6f;&#x78;&#x2e;&#x63;&#x6f;&#109;">&#x67;&#x69;&#116;&#x73;&#x74;&#101;&#x72;&#64;&#112;&#x6f;&#x62;&#x6f;&#x78;&#x2e;&#x63;&#x6f;&#109;</a></li>
+<li>Taylor Blau <a href="mailto:&#x6d;&#x65;&#x40;&#x74;&#x74;&#97;&#121;&#x6c;&#x6f;&#114;&#114;&#46;&#x63;&#x6f;&#109;">&#x6d;&#x65;&#x40;&#x74;&#x74;&#97;&#121;&#x6c;&#x6f;&#114;&#114;&#46;&#x63;&#x6f;&#109;</a></li>
+</ul>
+<p>All complaints will be reviewed and investigated promptly and fairly.</p>
+<p>All community leaders are obligated to respect the privacy and security of the<br>reporter of any incident.</p>
+<h2 id="Enforcement-Guidelines"><a href="#Enforcement-Guidelines" class="headerlink" title="Enforcement Guidelines"></a>Enforcement Guidelines</h2><p>Community leaders will follow these Community Impact Guidelines in determining<br>the consequences for any action they deem in violation of this Code of Conduct:</p>
+<h3 id="1-Correction"><a href="#1-Correction" class="headerlink" title="1. Correction"></a>1. Correction</h3><p><strong>Community Impact</strong>: Use of inappropriate language or other behavior deemed<br>unprofessional or unwelcome in the community.</p>
+<p><strong>Consequence</strong>: A private, written warning from community leaders, providing<br>clarity around the nature of the violation and an explanation of why the<br>behavior was inappropriate. A public apology may be requested.</p>
+<h3 id="2-Warning"><a href="#2-Warning" class="headerlink" title="2. Warning"></a>2. Warning</h3><p><strong>Community Impact</strong>: A violation through a single incident or series<br>of actions.</p>
+<p><strong>Consequence</strong>: A warning with consequences for continued behavior. No<br>interaction with the people involved, including unsolicited interaction with<br>those enforcing the Code of Conduct, for a specified period of time. This<br>includes avoiding interactions in community spaces as well as external channels<br>like social media. Violating these terms may lead to a temporary or<br>permanent ban.</p>
+<h3 id="3-Temporary-Ban"><a href="#3-Temporary-Ban" class="headerlink" title="3. Temporary Ban"></a>3. Temporary Ban</h3><p><strong>Community Impact</strong>: A serious violation of community standards, including<br>sustained inappropriate behavior.</p>
+<p><strong>Consequence</strong>: A temporary ban from any sort of interaction or public<br>communication with the community for a specified period of time. No public or<br>private interaction with the people involved, including unsolicited interaction<br>with those enforcing the Code of Conduct, is allowed during this period.<br>Violating these terms may lead to a permanent ban.</p>
+<h3 id="4-Permanent-Ban"><a href="#4-Permanent-Ban" class="headerlink" title="4. Permanent Ban"></a>4. Permanent Ban</h3><p><strong>Community Impact</strong>: Demonstrating a pattern of violation of community<br>standards, including sustained inappropriate behavior,  harassment of an<br>individual, or aggression toward or disparagement of classes of individuals.</p>
+<p><strong>Consequence</strong>: A permanent ban from any sort of public interaction within<br>the community.</p>
+<h2 id="Attribution"><a href="#Attribution" class="headerlink" title="Attribution"></a>Attribution</h2><p>This Code of Conduct is adapted from the <a target="_blank" rel="noopener" href="https://www.contributor-covenant.org/">Contributor Covenant</a>,<br>version 2.0, available at<br><a target="_blank" rel="noopener" href="https://www.contributor-covenant.org/version/2/0/code_of_conduct.html">https://www.contributor-covenant.org/version/2/0/code_of_conduct.html</a>.</p>
+<p>Community Impact Guidelines were inspired by<br><a target="_blank" rel="noopener" href="https://github.com/mozilla/diversity">Mozilla’s code of conduct enforcement ladder</a>.</p>
+<p>For answers to common questions about this code of conduct, see the FAQ at<br><a target="_blank" rel="noopener" href="https://www.contributor-covenant.org/faq">https://www.contributor-covenant.org/faq</a>. Translations are available<br>at <a target="_blank" rel="noopener" href="https://www.contributor-covenant.org/translations">https://www.contributor-covenant.org/translations</a>.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/07/tool%E5%B7%A5%E5%85%B7%E7%AF%87/Git/git_1_%E5%AE%89%E8%A3%85%E5%92%8C%E5%B7%A5%E4%BD%9C%E5%8C%BA%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="fengren123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fengren123's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/07/tool%E5%B7%A5%E5%85%B7%E7%AF%87/Git/git_1_%E5%AE%89%E8%A3%85%E5%92%8C%E5%B7%A5%E4%BD%9C%E5%8C%BA%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">Git(1)安装和工作区配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-06-07 18:11:22 / Modified: 18:22:25" itemprop="dateCreated datePublished" datetime="2024-06-07T18:11:22+08:00">2024-06-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1-安装Git"><a href="#1-安装Git" class="headerlink" title="1.安装Git"></a>1.安装Git</h1><h2 id="在Ubuntu-Linux上安装"><a href="#在Ubuntu-Linux上安装" class="headerlink" title="在Ubuntu Linux上安装"></a>在Ubuntu Linux上安装</h2><h3 id="包管理器安装"><a href="#包管理器安装" class="headerlink" title="包管理器安装"></a>包管理器安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install git</span><br></pre></td></tr></table></figure>
+<h3 id="源代码安装"><a href="#源代码安装" class="headerlink" title="源代码安装"></a>源代码安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="在Windows上安装"><a href="#在Windows上安装" class="headerlink" title="在Windows上安装"></a>在Windows上安装</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/06/tool%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator_3_%E8%B7%91%E9%80%9A%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E7%9A%84%E5%AE%9E%E4%BE%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="fengren123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fengren123's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/06/tool%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator_3_%E8%B7%91%E9%80%9A%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E7%9A%84%E5%AE%9E%E4%BE%8B/" class="post-title-link" itemprop="url">verilator(3)跑通基础使用的实例</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-06-06 14:12:35 / Modified: 14:13:37" itemprop="dateCreated datePublished" datetime="2024-06-06T14:12:35+08:00">2024-06-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/" itemprop="url" rel="index"><span itemprop="name">verilator</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/04/tool%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator_2_%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="fengren123">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fengren123's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/04/tool%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator_2_%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">verilator(2)基础使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-04 19:53:36" itemprop="dateCreated datePublished" datetime="2024-06-04T19:53:36+08:00">2024-06-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-06-06 19:52:56" itemprop="dateModified" datetime="2024-06-06T19:52:56+08:00">2024-06-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/" itemprop="url" rel="index"><span itemprop="name">verilator</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1-verilator介绍"><a href="#1-verilator介绍" class="headerlink" title="1. verilator介绍"></a>1. verilator介绍</h1><p>Verilator 是一款开源的支持 Verilog 和 SystemVerilog 仿真工具。它能够将给定的电路设计翻译成 C++ 或者 SystemC 的库等中间文件，最后使用 C&#x2F;C++ 编写激励测试，去调用前面生成的中间文件，由 C&#x2F;C++ 编译器编译执行，来完成仿真。此外，它也具有静态分析verilog代码语法正确与否的功能。</p>
+<h2 id="verilator的工作原理"><a href="#verilator的工作原理" class="headerlink" title="verilator的工作原理"></a>verilator的工作原理</h2><p>如下图所示,verilator是基于将.v转换为.cpp来进行仿真的:<img src="/2024/06/04/tool%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator_2_%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png" class="" title="verilator工作原理"></p>
+<ul>
+<li>首先，Verilator 将 Verilog 代码中<code>并行</code>的各个逻辑部件以合适的顺序<code>串行化</code>为C&#x2F;C++代码. 每个逻辑部件会被转化为C++语言中的<code>类</code>,并提供对应的接口和API. </li>
+<li>接着，我们需要使用 C&#x2F;C++ 编写激励文件。Verilator 为我们提供了顶层模块输入&#x2F;输出引脚的接口，使我们得以对顶层模块的输入信号赋值或读取其输出信号。与使用 Vivado 仿真不同的是，我们可以实时地输出一些调试信息；要查看波形图时，需要将波形图导出到文件,然后用gtkwave查看；</li>
+<li>最后，Verilator 会生成一个 Makefile 脚本，利用 GCC 等编译器将生成的 C&#x2F;C++ 文件和我们编写的激励文件编译成成用于仿真的可执行文件。</li>
+</ul>
+<h1 id="2-verilator命令"><a href="#2-verilator命令" class="headerlink" title="2. verilator命令"></a>2. verilator命令</h1><h2 id="verilator工具的编译命令-一键生成可执行文件"><a href="#verilator工具的编译命令-一键生成可执行文件" class="headerlink" title="verilator工具的编译命令:一键生成可执行文件"></a>verilator工具的编译命令:一键生成可执行文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">verilator [optionsA] &lt;verilog file(s)&gt;</span> </span><br></pre></td></tr></table></figure>
+<p>其中，<verilog_file> 是需要仿真的 Verilog 文件，[options] 是一些编译选项，这里列出一些常用的编译选项：</p>
+<ul>
+<li>–cc：指定将&lt;verilog_file(s)&gt;转化为 C++ 代码；</li>
+<li>–exe <cpp_file>：<cpp_file> 是用C++手动编写的tb文件,指定<cpp_file>为顶层测试文件;</li>
+<li>–build：直接编译生成目标文件,即可执行文件；</li>
+<li>–trace：导出波形文件时需要添加此选项,开启波形追踪；</li>
+<li>–top-module <top_module>：指定 Verilog 顶层模块；</li>
+<li>–Mdir <obj_dir>：Verilator 在编译 Verilog 文件时，会生成一系列的中间文件和输出文件，这些文件用于后续的编译和链接过程。指定 –Mdir 选项可以将这些文件放到一个特定的目录中，以便于管理和组织.default是obj_dir,可以改名为别的</li>
+<li>-CFLAGS <c_flags>：指定一个 GCC 的编译选项；</li>
+<li>-I <include_path>：可以指定一个包含路径,用于查找文件。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">verilator --cc verilog/top_module.v verilog/sub_module.v\</span></span><br><span class="line"><span class="language-bash">            --exe src/testbench.cpp \</span></span><br><span class="line"><span class="language-bash">            --build \</span></span><br><span class="line"><span class="language-bash">            --trace \</span></span><br><span class="line"><span class="language-bash">            --top-module top_module \</span></span><br><span class="line"><span class="language-bash">            --Mdir fzx_obj_dir \</span></span><br><span class="line"><span class="language-bash">            -CFLAGS <span class="string">&quot;-Wall -o2&quot;</span> \</span></span><br><span class="line"><span class="language-bash">        <span class="comment">#   -I include_path</span></span></span><br></pre></td></tr></table></figure>
+以上是一个使用全部常用参数的示例,执行上述命令后,即可在<code>fzx_obj_dir</code>中看到一个可执行文件<code>Vtop_module</code>.执行后可以在当前目录看到波形文件<code>&lt;wavefrom_name.gtk&gt;</code>.</li>
+</ul>
+<h2 id="自定义verilator工具编译命令"><a href="#自定义verilator工具编译命令" class="headerlink" title="自定义verilator工具编译命令"></a>自定义verilator工具编译命令</h2><p>上一小节使用verilator编译时候,会自动生成一个Makefile文件用于指导编译,名为<code>V&lt;top_module&gt;.mk</code>.在使用verilator编译时,如果指定了<code>--build</code>选项就会自动基于该.mk文件使用make进行编译,并生成可执行文件<code>V&lt;top_module&gt;</code>.<br>有时候需要自定义更丰富复杂的编译命令,就不能使用<code>--build</code>选项,而是需要重写一个makefile文件,在其中include <code>V&lt;top_module&gt;.mk</code>,并添加其他规则然后手动使用<code>make</code>工具进行编译.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ verilator -Wall --trace -cc alu.sv --exe tb_alu.cpp</span><br><span class="line">$ make -C obj_dir -f Valu.mk Valu</span><br></pre></td></tr></table></figure>
+<p>上面是一个简单的例子,使用verilator得到了一个指导编译的文件<code>Valu.mk</code>.然后手动使用make工具编译,<code>-C obj_dir</code>指示工作文件夹,<code>-f Valu.mk</code>指示makefile文件.(这个例子没有手动写一个new.mk)</p>
+<h1 id="3-日常基础使用流程"><a href="#3-日常基础使用流程" class="headerlink" title="3. 日常基础使用流程"></a>3. 日常基础使用流程</h1><p>参考一个非官方<a target="_blank" rel="noopener" href="https://itsembedded.com/dhd/verilator_1/">verilator教程part1</a>,具体的跑通流程参见<a href="./verilator_3_%E8%B7%91%E9%80%9A%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E7%9A%84%E5%AE%9E%E4%BE%8B.md">verilator(3)跑通基础使用的实例</a></p>
+<h2 id="3-1-电路模块的verilog代码"><a href="#3-1-电路模块的verilog代码" class="headerlink" title="3.1 电路模块的verilog代码"></a>3.1 电路模块的verilog代码</h2><p>正常编写alu.sv&#x2F;alu.v即可</p>
+<h2 id="3-2-testbench文件"><a href="#3-2-testbench文件" class="headerlink" title="3.2 testbench文件"></a>3.2 testbench文件</h2><p>需要使用c++而不是verilog编写testbench.cpp.具体写法在后面专门介绍.</p>
+<h2 id="3-3-使用verilator编译"><a href="#3-3-使用verilator编译" class="headerlink" title="3.3 使用verilator编译"></a>3.3 使用verilator编译</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">verilator   -Wall</span> </span><br><span class="line">            --cc verilog/alu.sv </span><br><span class="line">            --exe src/tb_alu.cpp </span><br><span class="line">            --trace </span><br><span class="line">            --top-module alu </span><br><span class="line">            --Mdir obj_dir # (default值就是obj_dir)</span><br><span class="line">            -CFLAGS &quot;-Wall -O2&quot; </span><br><span class="line">            # --build (不注释则直接在obj_dir下生成可执行文件Valu)</span><br><span class="line">            # -I include_path</span><br></pre></td></tr></table></figure>
+<p>编译后生成<code>obj_dir</code>文件夹存放编译的中间文件</p>
+<h2 id="3-4-介绍编译生成的中间文件"><a href="#3-4-介绍编译生成的中间文件" class="headerlink" title="3.4 介绍编译生成的中间文件"></a>3.4 介绍编译生成的中间文件</h2><p>编译后生成<code>obj_dir</code>文件夹存放编译的中间文件,其中需要关注的有:</p>
+<ul>
+<li>Valu.cpp, Valu.h: alu转换后对应的C++源文件以及头文件，其中Valu.h 包含了转换后的<code>ALU</code>类–也就是我们将在C++ testbench 中作为DUT “实例化 “的东西。</li>
+<li>Valu.mk: 指导编译的makefile文件</li>
+<li>Valu___024unit.h:<br>另外,如果alu.sv中使用了一些语法,例如以下代码,则可能在Valu.h之外会再生成一些其他的头文件,比如本例中的Valu___024unit.h,用作<code>ALU</code>类的内部头文件.内容是operation_t 数据类型定义.<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> <span class="title class_">logic</span> [<span class="number">1</span>:<span class="number">0</span>] &#123;</span><br><span class="line">     add     = <span class="number">2&#x27;</span>h1,</span><br><span class="line">     sub     = <span class="number">2&#x27;</span>h2,</span><br><span class="line">     nop     = <span class="number">2&#x27;</span>h0</span><br><span class="line">&#125; <span class="type">operation_t</span> <span class="comment">/*verilator public*/</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="3-5-生成可执行文件"><a href="#3-5-生成可执行文件" class="headerlink" title="3.5 生成可执行文件"></a>3.5 生成可执行文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make -C obj_dir -f Valu.mk Valu</span></span><br></pre></td></tr></table></figure>
+<p>使用make工具调用指导编译的Valu.mk文件,生成可执行文件<code>Valu</code></p>
+<h1 id="4-如何编写verilator工具的tb-cpp"><a href="#4-如何编写verilator工具的tb-cpp" class="headerlink" title="4. 如何编写verilator工具的tb.cpp"></a>4. 如何编写verilator工具的tb.cpp</h1><h2 id="4-1-深入理解什么是testbench"><a href="#4-1-深入理解什么是testbench" class="headerlink" title="4.1 深入理解什么是testbench"></a>4.1 深入理解什么是testbench</h2><h3 id="4-1-1-testbench的结构"><a href="#4-1-1-testbench的结构" class="headerlink" title="4.1.1 testbench的结构"></a>4.1.1 testbench的结构</h3><p>Testbench 由不可综合的 Verilog 代码组成，这些代码用于生成待测模块的输入，并验证待测模块的输出是否正确（是否符合预期）。下图展示了一个 Testbench 的基本架构。</p>
+<img src="/2024/06/04/tool%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator_2_%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/testbench%E7%BB%93%E6%9E%84.png" class="" title="testbench结构">
+<ul>
+<li>激励（Stimulus Block）是专门为待测模块生成的输入。我们需要尽可能产生全面的测试场景，包括合法的和不合法的。</li>
+<li>被测模块（Design Under Test, DUT）是我们编写的 Verilog 模块，Testbench 的主要目的就是对其进行验证，以确保在特定输入下其输出均与预期一致。</li>
+<li>输出校验（Output Checker）用于检查被测模块的输出是否符合预期。</li>
+<li>&#96;timescale 1ns &#x2F; 1ps: 时间刻度 单位 &#x2F; 精度</li>
+</ul>
+<h3 id="4-1-2-编写testbench激励"><a href="#4-1-2-编写testbench激励" class="headerlink" title="4.1.2 编写testbench激励"></a>4.1.2 编写testbench激励</h3><ol>
+<li>全局信号<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">    rst_n = <span class="number">0</span>;</span><br><span class="line">    #<span class="number">100</span> rst_n = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">initial</span> clk = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">always</span> #<span class="number">10</span> clk = ~clk;</span><br></pre></td></tr></table></figure></li>
+<li>初始化其他信号<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">    a = <span class="number">0</span>;</span><br><span class="line">    b = <span class="number">0</span>;</span><br><span class="line">    c = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></li>
+<li>产生激励方式(1):initial块产生激励<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">    #<span class="number">20</span> input_signal = <span class="number">4&#x27;b0001</span>;</span><br><span class="line">    #<span class="number">20</span> input_signal = <span class="number">4&#x27;b0010</span>;</span><br><span class="line">    #<span class="number">20</span> input_signal = <span class="number">4&#x27;b0100</span>;</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+适用于场景:(1)!!!非时钟驱动的激励:即激励信号不依赖于时钟沿变化时.(2)简单的,一次性的激励</li>
+<li>产生激励方式(2):always块产生激励<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">always</span> @(<span class="keyword">posedge</span> clk) <span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">if</span> (rst_n) <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">case</span> (<span class="built_in">$time</span>) <span class="comment">// 或者 case (cnt_clkposedge)</span></span><br><span class="line">            <span class="number">20</span>: input_signal = <span class="number">4&#x27;b0001</span>;</span><br><span class="line">            <span class="number">40</span>: input_signal = <span class="number">4&#x27;b0010</span>;</span><br><span class="line">            <span class="number">60</span>: input_signal = <span class="number">4&#x27;b0100</span>;</span><br><span class="line">            <span class="keyword">default</span>: input_signal = <span class="number">4&#x27;b0000</span>;</span><br><span class="line">        <span class="keyword">endcase</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+适用于场景:(1)时钟驱动的激励:比如要求是第17个时钟上升沿后改变激励信号从001到100.(2)周期性激励.(3)复杂的时序逻辑:本质上就是把simulu.v模块也需要当成一个模块来写了,而不是单纯的简单写几个initial块可以解决的情况.</li>
+<li>更高级的testbench语法<br>参考<a target="_blank" rel="noopener" href="https://soc.ustc.edu.cn/Digital/history/2023/lab2/testbench/#23-initial-always">编写测试文件</a>,介绍了”任务””循环”等高级写法,会很有用的,此处暂时不总结.</li>
+<li>输出波形<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">    <span class="built_in">$dumpfile</span>(<span class="string">&quot;testbench.vcd&quot;</span>);</span><br><span class="line">    <span class="built_in">$dumpvars</span>(<span class="number">0</span>, testbench);</span><br><span class="line">    #<span class="number">10000</span> <span class="built_in">$finish</span>; <span class="comment">//给一个仿真结束标识</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="4-2-verilator工具的tb-cpp的激励架构"><a href="#4-2-verilator工具的tb-cpp的激励架构" class="headerlink" title="4.2 verilator工具的tb.cpp的激励架构"></a>4.2 verilator工具的tb.cpp的激励架构</h2><p>理解上一小节的内容之后,就会发现,tb.cpp有3种架构:</p>
+<ol>
+<li>完全替代tb.v的作用.这样top_module就是top.v了.<img src="/2024/06/04/tool%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator_2_%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/tb.cpp%E6%9E%B6%E6%9E%841.png" class="" title="tb.cpp架构1"></li>
+<li>保留tb.v,但是需要让tb.v的全局信号留出端口,tb.cpp只给这两个全局信号发激励,其余信号的激励由tb.v来管. 这样top_module就是tb_top.v了.好处是:tb.cpp容易知道现在的仿真时间是多少<img src="/2024/06/04/tool%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator_2_%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/tb.cpp%E6%9E%B6%E6%9E%842.png" class="" title="tb.cpp架构2"></li>
+<li>完全保留tb.v,tb.cpp只需要<code>m_contextp-&gt;timeInc(1)</code>增加仿真时间就行.</li>
+</ol>
+<h2 id="4-3-初步介绍tb-cpp有哪些内容"><a href="#4-3-初步介绍tb-cpp有哪些内容" class="headerlink" title="4.3 初步介绍tb.cpp有哪些内容"></a>4.3 初步介绍tb.cpp有哪些内容</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这是一个第三种激励架构的简单例子</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;verilated.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;verilated_vcd_c.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;Vtop.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>** argv)</span></span>&#123;</span><br><span class="line"><span class="comment">/*构造环境对象，设计对象，波形对象*/</span></span><br><span class="line">  VerilatedContext* m_contextp = <span class="keyword">new</span> VerilatedContext;<span class="comment">//环境</span></span><br><span class="line">  VerilatedVcdC*    m_tracep   = <span class="keyword">new</span> VerilatedVcdC;<span class="comment">//波形</span></span><br><span class="line">  Vtop*             m_dutp     = <span class="keyword">new</span> Vtop;<span class="comment">//设计</span></span><br><span class="line"><span class="comment">/*波形追踪*/</span></span><br><span class="line">  m_contextp-&gt;<span class="built_in">traceEverOn</span>(<span class="literal">true</span>);<span class="comment">//环境里打开波形开关</span></span><br><span class="line">  m_dutp-&gt;<span class="built_in">trace</span>(m_trace,<span class="number">3</span>);<span class="comment">//深度为3</span></span><br><span class="line">  m_trace-&gt;<span class="built_in">open</span>(<span class="string">&quot;cnt_ceil_wf.vcd&quot;</span>);<span class="comment">//打开要存数据的vcd文件</span></span><br><span class="line"><span class="comment">/*电路仿真*/</span></span><br><span class="line">  <span class="keyword">while</span> (!m_contextp-&gt;<span class="built_in">gotFinish</span>())&#123;</span><br><span class="line">  <span class="comment">//刷新电路状态</span></span><br><span class="line">    m_duvp-&gt;<span class="built_in">eval</span>();</span><br><span class="line">  <span class="comment">//dump数据</span></span><br><span class="line">    m_tracep-&gt;<span class="built_in">dump</span>(m_contextp-&gt;<span class="built_in">time</span>());</span><br><span class="line">  <span class="comment">//增加仿真时间</span></span><br><span class="line">    m_contextp-&gt;<span class="built_in">timeInc</span>(<span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">/*仿真结束:保存波形,释放内存*/</span></span><br><span class="line">    <span class="comment">//关闭trace对象以保存文件里的数据</span></span><br><span class="line">    m_tracep-&gt;<span class="built_in">close</span>();</span><br><span class="line">    <span class="comment">//释放内存</span></span><br><span class="line">    <span class="keyword">delete</span> m_dutp;</span><br><span class="line">    <span class="keyword">delete</span> m_tracep;</span><br><span class="line">    <span class="keyword">delete</span> m_contextp;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>引入verilator头文件<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*引入verilator头文件*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;verilated.h&gt;</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;verilated_vcd_c.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;Vtop.h&quot;</span></span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li><code>verilated.h</code>:不用apt包管理器直接安装,手动安装的话,<code>verilated.h</code>位置一般在&#x2F;usr&#x2F;local&#x2F;include&#x2F;verilator&#x2F;.包含了verilator仿真器很多类和方法</li>
+<li><code>verilated_vcd_c.h</code>:波形相关的类</li>
+<li><code>Vtop.h</code>:verilator根据<code>top.v</code>生成的<code>Vtop.h</code></li>
+</ul>
+<ol start="2">
+<li>构造环境对象,设计对象,波形对象实例<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>** argv)</span></span>&#123;</span><br><span class="line">    VerilatedContext* m_contextp = <span class="keyword">new</span> VerilatedContext;<span class="comment">//环境</span></span><br><span class="line">    VerilatedVcdC*    m_tracep   = <span class="keyword">new</span> VerilatedVcdC;<span class="comment">//波形</span></span><br><span class="line">    Vtop*             m_dutp     = <span class="keyword">new</span> Vtop;<span class="comment">//设计</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>环境对象:理解为就是类似于iverilog一样的”仿真器”实例,环境对象实例<code>m_contextp</code>的各种属性和方法就是具体的仿真器内容.比如控制仿真时间、波形跟踪、传递命令行参数等</li>
+<li>波形对象:存储波形图</li>
+<li>设计对象:所设计的verilog电路模块<br><code>VerilatedContext</code>类就是在<code>verilated.h</code>里面定义的,高级一点的玩法可以直接看这个头文件来查找可以做什么,比如</li>
+</ul>
+<ol start="3">
+<li>开启波形追踪<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">    m_contextp-&gt;<span class="built_in">traceEverOn</span>(<span class="literal">true</span>); <span class="comment">//环境对象,打开波形追踪开关</span></span><br><span class="line">    m_dutp-&gt;<span class="built_in">trace</span>(m_trace,<span class="number">3</span>); <span class="comment">//设计对象,把波形追踪数据发给波形对象,其中3是深度</span></span><br><span class="line">    m_trace-&gt;<span class="built_in">open</span>(<span class="string">&quot;testtop.vcd&quot;</span>); <span class="comment">//波形对象,打开vcd文件</span></span><br><span class="line">```  </span><br><span class="line">深度为<span class="number">3</span>表示只向下追踪top.v的<span class="number">3</span>级子模块的信号,更深子模块的信号不去追踪.  </span><br><span class="line"><span class="number">4.</span> !!!电路仿真</span><br><span class="line">```<span class="function">cpp</span></span><br><span class="line"><span class="function">  <span class="title">while</span> <span class="params">(!m_contextp-&gt;gotFinish())</span></span>&#123;</span><br><span class="line">  <span class="comment">//刷新电路状态</span></span><br><span class="line">    m_duvp-&gt;<span class="built_in">eval</span>();</span><br><span class="line">  <span class="comment">//dump数据</span></span><br><span class="line">    m_tracep-&gt;<span class="built_in">dump</span>(m_contextp-&gt;<span class="built_in">time</span>());</span><br><span class="line">  <span class="comment">//增加仿真时间</span></span><br><span class="line">    m_contextp-&gt;<span class="built_in">timeInc</span>(<span class="number">1</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+电路仿真部分的代码本质上是:修改激励-&gt;计算电路-&gt;更新电路-&gt;输出到波形文件<br>这段代码只是一种简单的情况仿真方式,但是并不是每次仿真都要按照这个格式来写电路仿真部分的代码,这个部分代码最复杂最重要,下一小节专门讲解.  </li>
+<li>仿真结束:释放内存,保存波形<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">    <span class="comment">//关闭trace对象以保存文件里的数据</span></span><br><span class="line">    m_tracep-&gt;<span class="built_in">close</span>();</span><br><span class="line">    <span class="comment">//释放内存</span></span><br><span class="line">    <span class="keyword">delete</span> m_dutp;</span><br><span class="line">    <span class="keyword">delete</span> m_tracep;</span><br><span class="line">    <span class="keyword">delete</span> m_contextp;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="4-4-重点讲解tb-cpp中的电路仿真部分代码"><a href="#4-4-重点讲解tb-cpp中的电路仿真部分代码" class="headerlink" title="4.4 重点讲解tb.cpp中的电路仿真部分代码"></a>4.4 重点讲解tb.cpp中的电路仿真部分代码</h2><h3 id="提供时钟的方法"><a href="#提供时钟的方法" class="headerlink" title="提供时钟的方法"></a>提供时钟的方法</h3><ol>
+<li>tb.cpp产生时钟<br>tb.v中只定义了reg clk但是没有驱动起来的话,则需要在tb.cpp的电路仿真部分写如下代码:<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">m_dutp-&gt;clk = ~m_dutp-&gt;clk;</span><br></pre></td></tr></table></figure></li>
+<li>tb.v产生时钟<br>由于tb.v中已经规定了reg clk随时间变化的驱动,则只需要在tb.cpp让仿真时间变化就可以了.<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">m_contextp-&gt;<span class="built_in">timeInc</span>(<span class="number">1</span>);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="循环-流程主体的方法"><a href="#循环-流程主体的方法" class="headerlink" title="循环&#x2F;流程主体的方法"></a>循环&#x2F;流程主体的方法</h3><ol>
+<li><p><code>while(sim_time &lt; MAX_SIM_TIME)</code>  </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (sim_time &lt; MAX_SIM_TIME) &#123;</span><br><span class="line">    <span class="built_in">dut_reset</span>(dut, sim_time);</span><br><span class="line"></span><br><span class="line">    dut-&gt;clk ^= <span class="number">1</span>;</span><br><span class="line">    dut-&gt;<span class="built_in">eval</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (dut-&gt;clk == <span class="number">1</span>)&#123;</span><br><span class="line">        dut-&gt;in_valid = <span class="number">0</span>;</span><br><span class="line">        posedge_cnt++;</span><br><span class="line">        <span class="built_in">set_rnd_out_valid</span>(dut, sim_time);</span><br><span class="line">        <span class="built_in">check_out_valid</span>(dut, sim_time);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    m_trace-&gt;<span class="built_in">dump</span>(sim_time);</span><br><span class="line">    sim_time++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>while(!m_contextp-&gt;gotFinish())</code>  </p>
+</li>
+<li><p><code>m_dutp-&gt;final();</code></p>
+</li>
+</ol>
+<h3 id="reset"><a href="#reset" class="headerlink" title="reset"></a>reset</h3><p>void dut_reset (Valu *m_dutp, vluint64_t &amp;sim_time){<br>    dut-&gt;rst &#x3D; 0;<br>    if(sim_time &gt;&#x3D; 3 &amp;&amp; sim_time &lt; 6){<br>        m_dutp-&gt;rst &#x3D; 1;<br>        m_dutp-&gt;a_in &#x3D; 0;<br>        m_dutp-&gt;b_in &#x3D; 0;<br>        m_dutp-&gt;op_in &#x3D; 0;<br>        m_dutp-&gt;in_valid &#x3D; 0;<br>    }<br>}</p>
+<h2 id="4-5-以一种更加模块化的方式介绍tb-cpp"><a href="#4-5-以一种更加模块化的方式介绍tb-cpp" class="headerlink" title="4.5 以一种更加模块化的方式介绍tb.cpp"></a>4.5 以一种更加模块化的方式介绍tb.cpp</h2>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
     <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/04/Linux%E7%AF%87/%E5%AE%89%E8%A3%85%E5%B7%A5%E5%85%B7/(%E6%9C%AA%E5%86%99)%E6%89%8B%E5%8A%A8%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -208,768 +1198,11 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/04/%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator(%E4%B8%89)%E8%BF%9B%E9%98%B6:%E6%8E%A5%E5%85%A5nvboard/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="fengren123">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fengren123's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/04/%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator(%E4%B8%89)%E8%BF%9B%E9%98%B6:%E6%8E%A5%E5%85%A5nvboard/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2024-06-04 11:07:42 / Modified: 11:08:28" itemprop="dateCreated datePublished" datetime="2024-06-04T11:07:42+08:00">2024-06-04</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/04/%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator(%E4%BA%8C)%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="fengren123">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fengren123's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/04/%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator(%E4%BA%8C)%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">verilator(二)基础使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2024-06-04 11:07:24 / Modified: 19:47:07" itemprop="dateCreated datePublished" datetime="2024-06-04T11:07:24+08:00">2024-06-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/" itemprop="url" rel="index"><span itemprop="name">verilator</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-verilator介绍"><a href="#1-verilator介绍" class="headerlink" title="1. verilator介绍"></a>1. verilator介绍</h1><p>Verilator 是一款开源的支持 Verilog 和 SystemVerilog 仿真工具。它能够将给定的电路设计翻译成 C++ 或者 SystemC 的库等中间文件，最后使用 C&#x2F;C++ 编写激励测试，去调用前面生成的中间文件，由 C&#x2F;C++ 编译器编译执行，来完成仿真。此外，它也具有静态分析verilog代码语法正确与否的功能。</p>
-<h2 id="verilator的工作原理"><a href="#verilator的工作原理" class="headerlink" title="verilator的工作原理"></a>verilator的工作原理</h2><p>如下图所示,verilator是基于将.v转换为.cpp来进行仿真的:<img src="/verilator(%E4%BA%8C)%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png" alt="verilator工作原理"></p>
-<ul>
-<li>首先，Verilator 将 Verilog 代码中<code>并行</code>的各个逻辑部件以合适的顺序<code>串行化</code>为C&#x2F;C++代码. 每个逻辑部件会被转化为C++语言中的<code>类</code>,并提供对应的接口和API. </li>
-<li>接着，我们需要使用 C&#x2F;C++ 编写激励文件。Verilator 为我们提供了顶层模块输入&#x2F;输出引脚的接口，使我们得以对顶层模块的输入信号赋值或读取其输出信号。与使用 Vivado 仿真不同的是，我们可以实时地输出一些调试信息；要查看波形图时，需要将波形图导出到文件,然后用gtkwave查看；</li>
-<li>最后，Verilator 会生成一个 Makefile 脚本，利用 GCC 等编译器将生成的 C&#x2F;C++ 文件和我们编写的激励文件编译成成用于仿真的可执行文件。</li>
-</ul>
-<h1 id="2-verilator命令"><a href="#2-verilator命令" class="headerlink" title="2. verilator命令"></a>2. verilator命令</h1><h2 id="verilator工具的编译命令"><a href="#verilator工具的编译命令" class="headerlink" title="verilator工具的编译命令"></a>verilator工具的编译命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">verilator [optionsA] &lt;verilog file(s)&gt;</span> </span><br></pre></td></tr></table></figure>
-<p>其中，<verilog_file> 是需要仿真的 Verilog 文件，[options] 是一些编译选项，这里列出一些常用的编译选项：</p>
-<ul>
-<li>–cc：指定将&lt;verilog_file(s)&gt;转化为 C++ 代码；</li>
-<li>–exe <cpp_file>：<cpp_file> 是用C++手动编写的tb文件,指定<cpp_file>为顶层测试文件;</li>
-<li>–build：直接编译生成目标文件,即可执行文件；</li>
-<li>–trace：导出波形文件时需要添加此选项,开启波形追踪；</li>
-<li>–top-module <top_module>：指定 Verilog 顶层模块；</li>
-<li>–Mdir <obj_dir>：Verilator 在编译 Verilog 文件时，会生成一系列的中间文件和输出文件，这些文件用于后续的编译和链接过程。指定 –Mdir 选项可以将这些文件放到一个特定的目录中，以便于管理和组织.default是obj_dir,可以改名为别的</li>
-<li>-CFLAGS <c_flags>：指定一个 GCC 的编译选项；</li>
-<li>-I <include_path>：可以指定一个包含路径,用于查找文件。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">verilator --cc verilog/top_module.v verilog/sub_module.v\</span></span><br><span class="line"><span class="language-bash">            --exe src/testbench.cpp \</span></span><br><span class="line"><span class="language-bash">            --build \</span></span><br><span class="line"><span class="language-bash">            --trace \</span></span><br><span class="line"><span class="language-bash">            --top-module top_module \</span></span><br><span class="line"><span class="language-bash">            --Mdir fzx_obj_dir \</span></span><br><span class="line"><span class="language-bash">            -CFLAGS <span class="string">&quot;-Wall -o2&quot;</span> \</span></span><br><span class="line"><span class="language-bash">        <span class="comment">#   -I include_path</span></span></span><br></pre></td></tr></table></figure>
-以上是一个使用全部常用参数的示例,执行上述命令后,即可在<code>fzx_obj_dir</code>中看到一个可执行文件<code>Vtop_module</code>.执行后可以在当前目录看到波形文件<code>&lt;wavefrom_name.gtk&gt;</code>.</li>
-</ul>
-<h2 id="自定义verilator工具编译命令"><a href="#自定义verilator工具编译命令" class="headerlink" title="自定义verilator工具编译命令"></a>自定义verilator工具编译命令</h2><p>上一小节使用verilator编译时候,会自动生成一个Makefile文件用于指导编译,名为<code>V&lt;top_module&gt;.mk</code>.在使用verilator编译时,如果指定了<code>--build</code>选项就会自动基于该.mk文件使用make进行编译,并生成可执行文件<code>V&lt;top_module&gt;</code>.<br>有时候需要自定义更丰富复杂的编译命令,就不能使用<code>--build</code>选项,而是需要重写一个makefile文件,在其中include <code>V&lt;top_module&gt;.mk</code>,并添加其他规则然后手动使用<code>make</code>工具进行编译.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ verilator -Wall --trace -cc alu.sv --exe tb_alu.cpp</span><br><span class="line">$ make -C obj_dir -f Valu.mk Valu</span><br></pre></td></tr></table></figure>
-<p>上面是一个简单的例子,使用verilator得到了一个指导编译的文件<code>Valu.mk</code>.然后手动使用make工具编译,<code>-C obj_dir</code>指示工作文件夹,<code>-f Valu.mk</code>指示makefile文件.(这个例子没有手动写一个new.mk)</p>
-<h1 id="3-日常基础使用流程"><a href="#3-日常基础使用流程" class="headerlink" title="3. 日常基础使用流程"></a>3. 日常基础使用流程</h1><p>参考一个非官方<a target="_blank" rel="noopener" href="https://itsembedded.com/dhd/verilator_1/">verilator教程part1</a></p>
-<h2 id="3-1-电路模块的verilog代码"><a href="#3-1-电路模块的verilog代码" class="headerlink" title="3.1 电路模块的verilog代码"></a>3.1 电路模块的verilog代码</h2><p>正常编写alu.sv</p>
-<h2 id="3-2-testbench文件"><a href="#3-2-testbench文件" class="headerlink" title="3.2 testbench文件"></a>3.2 testbench文件</h2><p>需要使用c++而不是verilog编写testbench.cpp.具体写法在后面专门介绍.</p>
-<h2 id="3-3-使用verilator编译"><a href="#3-3-使用verilator编译" class="headerlink" title="3.3 使用verilator编译"></a>3.3 使用verilator编译</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">verilator   -Wall </span><br><span class="line">            --cc verilog/alu.sv </span><br><span class="line">            --exe src/tb_alu.cpp </span><br><span class="line">            --trace </span><br><span class="line">            --top-module alu </span><br><span class="line">            --Mdir obj_dir # (default值就是obj_dir)</span><br><span class="line">            -CFLAGS &quot;-Wall -O2&quot; </span><br><span class="line">            # --build (不注释则直接在obj_dir下生成可执行文件Valu)</span><br><span class="line">            # -I include_path</span><br></pre></td></tr></table></figure>
-<p>编译后生成<code>obj_dir</code>文件夹存放编译的中间文件</p>
-<h2 id="3-4-介绍编译生成的中间文件"><a href="#3-4-介绍编译生成的中间文件" class="headerlink" title="3.4 介绍编译生成的中间文件"></a>3.4 介绍编译生成的中间文件</h2><p>编译后生成<code>obj_dir</code>文件夹存放编译的中间文件,其中需要关注的有:</p>
-<ul>
-<li>Valu.cpp, Valu.h: alu转换后对应的C++源文件以及头文件，其中Valu.h 包含了转换后的<code>ALU</code>类–也就是我们将在C++ testbench 中作为DUT “实例化 “的东西。</li>
-<li>Valu.mk: 指导编译的makefile文件</li>
-<li>Valu___024unit.h:<br>另外,如果alu.sv中使用了一些语法,例如以下代码,则可能在Valu.h之外会再生成一些其他的头文件,比如本例中的Valu___024unit.h,用作<code>ALU</code>类的内部头文件.内容是operation_t 数据类型定义.<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">enum</span> <span class="title class_">logic</span> [<span class="number">1</span>:<span class="number">0</span>] &#123;</span><br><span class="line">     add     = <span class="number">2&#x27;</span>h1,</span><br><span class="line">     sub     = <span class="number">2&#x27;</span>h2,</span><br><span class="line">     nop     = <span class="number">2&#x27;</span>h0</span><br><span class="line">&#125; <span class="type">operation_t</span> <span class="comment">/*verilator public*/</span>;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="3-5-生成可执行文件"><a href="#3-5-生成可执行文件" class="headerlink" title="3.5 生成可执行文件"></a>3.5 生成可执行文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make -C obj_dir -f Valu.mk Valu</span></span><br></pre></td></tr></table></figure>
-<p>使用make工具调用指导编译的Valu.mk文件,生成可执行文件<code>Valu</code></p>
-<h1 id="4-如何编写verilator工具的tb-cpp"><a href="#4-如何编写verilator工具的tb-cpp" class="headerlink" title="4. 如何编写verilator工具的tb.cpp"></a>4. 如何编写verilator工具的tb.cpp</h1>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/04/%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator(%E4%B8%80)%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%89%E8%A3%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="fengren123">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fengren123's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/04/%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/verilator(%E4%B8%80)%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">verilator(一)介绍与安装</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2024-06-04 10:53:05 / Modified: 19:46:47" itemprop="dateCreated datePublished" datetime="2024-06-04T10:53:05+08:00">2024-06-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/verilator/" itemprop="url" rel="index"><span itemprop="name">verilator</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-verilator介绍"><a href="#1-verilator介绍" class="headerlink" title="1. verilator介绍"></a>1. verilator介绍</h1><p>Verilator 是一款开源的支持 Verilog 和 SystemVerilog 仿真工具。它能够将给定的电路设计翻译成 C++ 或者 SystemC 的库等中间文件，最后使用 C&#x2F;C++ 编写激励测试，去调用前面生成的中间文件，由 C&#x2F;C++ 编译器编译执行，来完成仿真。此外，它也具有静态分析verilog代码语法正确与否的功能。</p>
-<h2 id="verilator的工作原理"><a href="#verilator的工作原理" class="headerlink" title="verilator的工作原理"></a>verilator的工作原理</h2><p>如下图所示,verilator是基于将.v转换为.cpp来进行仿真的:<img src="/verilator(%E4%B8%80)%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%89%E8%A3%85/verilator%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.png" alt="verilator工作原理"></p>
-<ul>
-<li>首先，Verilator 将 Verilog 代码中<code>并行</code>的各个逻辑部件以合适的顺序<code>串行化</code>为C&#x2F;C++代码. 每个逻辑部件会被转化为C++语言中的<code>类</code>,并提供对应的接口和API. </li>
-<li>接着，我们需要使用 C&#x2F;C++ 编写激励文件。Verilator 为我们提供了顶层模块输入&#x2F;输出引脚的接口，使我们得以对顶层模块的输入信号赋值或读取其输出信号。与使用 Vivado 仿真不同的是，我们可以实时地输出一些调试信息；要查看波形图时，需要将波形图导出到文件,然后用gtkwave查看；</li>
-<li>最后，Verilator 会生成一个 Makefile 脚本，利用 GCC 等编译器将生成的 C&#x2F;C++ 文件和我们编写的激励文件编译成成用于仿真的可执行文件。</li>
-</ul>
-<h1 id="2-安装verilator"><a href="#2-安装verilator" class="headerlink" title="2. 安装verilator"></a>2. 安装verilator</h1><p>使用apt一键安装verilator的版本过低,因此需要手动编译安装verilator,参考<a target="_blank" rel="noopener" href="https://verilator.org/guide/latest/install.html#package-manager-quick-install">官方文档</a>.</p>
-<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo apt-get install git perl python3 make autoconf g++ flex bison ccache</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo apt-get install libgoogle-perftools-dev numactl perl-doc help2man</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo apt-get install libfl2 <span class="comment"># (ignore if gives error)</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo apt-get install libfl-dev <span class="comment"># (ignore if gives error)</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo apt-get install zlibc zlib1g zlib1g-dev <span class="comment"># (ignore if gives error)</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> https://github.com/verilator/verilator</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout stable <span class="comment"># 切换到稳定版本的分支下</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="编译源码-执行安装程序"><a href="#编译源码-执行安装程序" class="headerlink" title="编译源码,执行安装程序"></a>编译源码,执行安装程序</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">autoconf <span class="comment"># autoconf 是一个用于生成 configure 脚本的工具</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">./configure <span class="comment"># configure 脚本是一个自动化配置脚本，检查系统环境以确保编译软件时所需的依赖和配置都满足要求。它还会生成一个 Makefile，这个文件包含了编译和安装软件的具体指令</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make -j &lt;<span class="built_in">nproc</span>&gt; <span class="comment"># 编译: make 命令读取Makefile中的指令(并行)编译源码，生成可执行文件或库。-j 选项用于指定同时运行的CPU数，$(nproc) 命令返回当前系统中的 CPU 核心数量。这可以加快编译过程。</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo make install <span class="comment"># 安装: 将编译好的软件安装到系统中。由于通常需要写入系统目录（如 /usr/local/bin），所以需要 sudo 权限。</span></span></span><br></pre></td></tr></table></figure>
-<h2 id="测试安装"><a href="#测试安装" class="headerlink" title="测试安装"></a>测试安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">verilator --version</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20|%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E5%9B%9B)%E8%BF%9B%E9%98%B6%E9%85%8D%E7%BD%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="fengren123">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fengren123's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20%7C%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E5%9B%9B)%E8%BF%9B%E9%98%B6%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">hexo(四)进阶配置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-06-02 21:22:04" itemprop="dateCreated datePublished" datetime="2024-06-02T21:22:04+08:00">2024-06-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-06-04 19:44:51" itemprop="dateModified" datetime="2024-06-04T19:44:51+08:00">2024-06-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo-%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">hexo | 搭建静态博客</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="设置代码块高亮和代码块复制功能"><a href="#设置代码块高亮和代码块复制功能" class="headerlink" title="设置代码块高亮和代码块复制功能"></a>设置代码块高亮和代码块复制功能</h1><p>使用next主题情况下,修改<code>主题配置文件</code>中的内容如下</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">highlight_theme:</span> <span class="string">normal</span></span><br><span class="line"><span class="attr">codeblock:</span></span><br><span class="line">  <span class="comment"># Manual define the border radius in codeblock, leave it blank for the default value: 1</span></span><br><span class="line">  <span class="attr">border_radius:</span></span><br><span class="line">  <span class="comment"># Add copy button on codeblock</span></span><br><span class="line">  <span class="attr">copy_button:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span> <span class="comment"># 开启代码块复制</span></span><br><span class="line">    <span class="comment"># Show text copy result</span></span><br><span class="line">    <span class="attr">show_result:</span> <span class="literal">true</span> <span class="comment"># 提示复制结果</span></span><br><span class="line">    <span class="comment"># Style: only &#x27;flat&#x27; is currently available, leave it blank if you prefer default theme</span></span><br><span class="line">    <span class="attr">style:</span></span><br></pre></td></tr></table></figure>
-
-
-<h1 id="hexo的博客中如何添加本地图片内容"><a href="#hexo的博客中如何添加本地图片内容" class="headerlink" title="hexo的博客中如何添加本地图片内容"></a>hexo的博客中如何添加本地图片内容</h1><p>参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/edisonfish/p/18180672">博客园文章:hexo 博客插入本地图片时遇到的坑</a>.</p>
-<h2 id="1-开启-config-yml中的post-asset-folder"><a href="#1-开启-config-yml中的post-asset-folder" class="headerlink" title="1. 开启_config.yml中的post_asset_folder"></a>1. 开启_config.yml中的<code>post_asset_folder</code></h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<p>即之前系列文章已经提到过的配置项,开启后在<code>hexo init &lt;new_title&gt;</code>时会为<new_title>.md文章生成配套的<new_title>文件夹,用来存放png等资源.</p>
-<h2 id="2-安装”插图”插件"><a href="#2-安装”插图”插件" class="headerlink" title="2. 安装”插图”插件"></a>2. 安装”插图”插件</h2><p>插图插件的作用主要是转换路径,网上大部分资料让使用的是<code>hexo-asset-image</code>,但是这个插件已经archived了,是存在bug的.正确的插件应该是<code>hexo-asset-img</code>.</p>
-<ol>
-<li>首先卸载掉旧的<code>hexo-asset-image</code>:这个插件是npm安装在工作区下的,所以在工作区的<code>node_modules</code>目录下找到这个文件夹删掉就行.</li>
-<li>安装新插件:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-asset-img --save</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h2 id="3-引用图片的格式规矩"><a href="#3-引用图片的格式规矩" class="headerlink" title="3. 引用图片的格式规矩"></a>3. 引用图片的格式规矩</h2><p>假设有new.md和new文件夹,目录结构如下:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">├── new</span><br><span class="line">│   ├── p1.png</span><br><span class="line">│   └── p2.png</span><br><span class="line">└── new.md</span><br></pre></td></tr></table></figure>
-<p>在new.md中引用p1.png的格式严格遵守</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">p1</span>](<span class="link">new/p1.png</span>)</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20|%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%B8%89)%E5%86%99%E5%8D%9A%E5%AE%A2&%E5%8F%91%E5%8D%9A%E5%AE%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="fengren123">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fengren123's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20%7C%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%B8%89)%E5%86%99%E5%8D%9A%E5%AE%A2&%E5%8F%91%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">hexo(三)写博客&发博客</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-06-02 20:33:24" itemprop="dateCreated datePublished" datetime="2024-06-02T20:33:24+08:00">2024-06-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-06-04 19:42:54" itemprop="dateModified" datetime="2024-06-04T19:42:54+08:00">2024-06-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo-%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">hexo | 搭建静态博客</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-发文章流程"><a href="#1-发文章流程" class="headerlink" title="1. 发文章流程"></a>1. 发文章流程</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new [option] title</span><br><span class="line">$ hexo generate 或者 hexo g</span><br><span class="line">$ hexo server 或者 hexo s</span><br><span class="line">$ hexo deploy 或者 hexo d</span><br><span class="line">$ hexo g &amp; hexo d</span><br></pre></td></tr></table></figure>
-<ol>
-<li>new:建立一个新的title.md文件</li>
-</ol>
-<ul>
-<li>配套的png等附件如何存放?如果配置了_config.yml中的default_layout参数则是默认会建立一个与title同名的文件夹用于存放title.md需要用到的.png等文件.(而且必须这样存放)</li>
-<li>[options]:<code>[options]</code>主要只使用<code>-p 或者 --path</code>参数用来指示路径.</li>
-<li>路径:title.md会放在根目录&#x2F;source&#x2F;_posts下,这里面存的就是要发出去的文章.可以根据分类在_posts下自由放置在比如”工具篇”的文件夹下,并不影响.</li>
-</ul>
-<ol start="2">
-<li>编辑title.md文件内容</li>
-<li>generate:生成静态文件</li>
-<li>server:启动本地端口预览<br>默认情况下访问网址为:<a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a>.<br><code>$ hexo server -p 4001</code><br>可以重设端口为4001,访问网址为:<a target="_blank" rel="noopener" href="http://localhost:4001/">http://localhost:4001/</a>.</li>
-<li>deploy:把静态文件部署在网页(github.io)上</li>
-<li>其他<br><code>$ hexo g &amp; hexo d</code>可以连续执行两个命令</li>
-</ol>
-<h1 id="2-写文章"><a href="#2-写文章" class="headerlink" title="2. 写文章"></a>2. 写文章</h1><p>与普通的md文件相比,只是多了一个Front-matter.根据需要写就行了</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">title: hexo(三)写博客&amp;发博客</span><br><span class="line">data: 2024/6/2 20:46:25</span><br><span class="line">updata: # 更新日期</span><br><span class="line">tags: </span><br><span class="line"><span class="bullet">    -</span> 基础教程</span><br><span class="line"><span class="bullet">    -</span> hexo</span><br><span class="line"><span class="bullet">    -</span> 静态博客</span><br><span class="line">categories:</span><br><span class="line"><span class="bullet">    -</span> 工具篇 # 这是一级分类</span><br><span class="line"><span class="section">    - hexo | 搭建静态博客 # 这是二级分类</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="Q-hexo-部署博客到github上，代码更新在github了，但是访问博客内容却没更新？"><a href="#Q-hexo-部署博客到github上，代码更新在github了，但是访问博客内容却没更新？" class="headerlink" title="Q: hexo,部署博客到github上，代码更新在github了，但是访问博客内容却没更新？"></a>Q: hexo,部署博客到github上，代码更新在github了，但是访问博客内容却没更新？</h1><ol>
-<li><code>hexo clean</code>把本地的差分文件清理一下,再<code>hexo g &amp; hexo d</code></li>
-<li>等会儿时间,有时候会需要10分钟以内的更新时间</li>
-<li>浏览器缓存问题,用手机浏览器先看一下对不对</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/Git/123/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="fengren123">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fengren123's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/Git/123/" class="post-title-link" itemprop="url">Untitled</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2024-06-02 10:56:13 / Modified: 10:56:19" itemprop="dateCreated datePublished" datetime="2024-06-02T10:56:13+08:00">2024-06-02</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ol>
-<li>配置github本地账户</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20|%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%BA%8C)%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%96%87%E4%BB%B6%E5%A4%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="fengren123">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fengren123's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20%7C%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%BA%8C)%E9%85%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%96%87%E4%BB%B6%E5%A4%B9/" class="post-title-link" itemprop="url">hexo(二)配置工作区文件夹</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-06-02 10:11:58" itemprop="dateCreated datePublished" datetime="2024-06-02T10:11:58+08:00">2024-06-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-06-04 19:31:13" itemprop="dateModified" datetime="2024-06-04T19:31:13+08:00">2024-06-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo-%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">hexo | 搭建静态博客</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1-setup"><a href="#1-setup" class="headerlink" title="1. setup"></a>1. setup</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init &lt;folder&gt;</span><br><span class="line">cd &lt;folder&gt;</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
-<p>Once initialized, here’s what your project folder will look like:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.landscape.yml</span><br><span class="line">├── _config.yml # 大部分配置在这里修改</span><br><span class="line">├── db.json</span><br><span class="line">├── node_modules</span><br><span class="line">├── package-lock.json</span><br><span class="line">├── package.json</span><br><span class="line">├── public</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source # .md文件    </span><br><span class="line">└── themes # 存放有next主题,优化配置</span><br></pre></td></tr></table></figure>
-
-<h1 id="2-github-io作为网页"><a href="#2-github-io作为网页" class="headerlink" title="2. github.io作为网页"></a>2. github.io作为网页</h1><ol>
-<li>配置github本地账户(具体的查Git相关笔记).<code>ssh -T git@github.com</code>有响应就是成功</li>
-<li>修改根目录下_config.yml中的几项<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">https://fengren123.github.io/</span></span><br><span class="line"><span class="attr">theme:</span> <span class="string">next</span> <span class="comment"># 需要先安装next主题</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">git</span> <span class="comment"># 不要使用github</span></span><br><span class="line">    <span class="attr">repo:</span> <span class="string">git@github.com:fengren123/fengren123.github.io.git</span> <span class="comment"># 使用ssh连接</span></span><br><span class="line">    <span class="attr">branch:</span> <span class="string">main</span> <span class="comment"># 默认main分支</span></span><br><span class="line">    <span class="attr">message:</span> <span class="string">冯梓效add</span> <span class="string">a</span> <span class="string">new</span> <span class="string">blog</span> <span class="comment"># 自动部署commit备注，可不填</span></span><br></pre></td></tr></table></figure></li>
-<li>在Node.js项目(即folder)中安装hexo-deployer-git,这是hexo的git部署插件 <blockquote>
-<p>npm install hexo-deployer-git –save<br>至此已经成功把网页配置为了github.io</p>
-</blockquote>
-</li>
-</ol>
-<h1 id="3-configuration"><a href="#3-configuration" class="headerlink" title="3. configuration"></a>3. configuration</h1><h2 id="3-1-主题替换为next"><a href="#3-1-主题替换为next" class="headerlink" title="3.1 主题替换为next"></a>3.1 主题替换为next</h2><ol>
-<li>下载next主题<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/next-theme/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure></li>
-<li>在_config.yml中修改为<code>theme: next</code>即可</li>
-<li>下载后现在一共有两个config文件:一个是根目录下的&#x2F;_config.yml称为站点配置文件,另一个一个是&#x2F;themes&#x2F;next&#x2F;_config.yml称为主题配置文件</li>
-</ol>
-<h2 id="3-2-修改”站点配置文件”"><a href="#3-2-修改”站点配置文件”" class="headerlink" title="3.2 修改”站点配置文件”"></a>3.2 修改”站点配置文件”</h2><p>在<code>_config.yml中</code>可以对网页默认配置和站点配置进行设置,<a target="_blank" rel="noopener" href="https://hexo.io/docs/configuration.html">配置目录</a>.比较重要的配置(github配置的忽略):</p>
-<ul>
-<li>title,author,description:网页基础信息</li>
-<li>post_asset_folder:启用一个和.md文件同名的资源文件夹,可以存.md文件需要的png等(想要在hexo中添加本地图片,还需要更多的操作,具体见”hexo(四)进阶配置”)</li>
-</ul>
-<h2 id="3-3-修改”主题配置文件”"><a href="#3-3-修改”主题配置文件”" class="headerlink" title="3.3 修改”主题配置文件”"></a>3.3 修改”主题配置文件”</h2><ol>
-<li>开启”标签页”和”分类页”<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">scheme:</span> <span class="string">Gemini</span></span><br><span class="line"><span class="attr">darkmode:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">menu:</span></span><br><span class="line">  <span class="attr">home:</span> <span class="string">/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-home</span></span><br><span class="line">  <span class="comment">#about: /about/ || fa fa-user</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="string">/tags/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-tags</span> <span class="comment"># 开启标签页</span></span><br><span class="line">  <span class="attr">categories:</span> <span class="string">/categories/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-th</span> <span class="comment"># 开启分类页</span></span><br><span class="line">  <span class="attr">archives:</span> <span class="string">/archives/</span> <span class="string">||</span> <span class="string">fa</span> <span class="string">fa-archive</span></span><br></pre></td></tr></table></figure></li>
-<li>手动新建”标签页”和”分类页”,才能在点击”tags”等时知道进入什么对应的页面<br>以”分类页”举例,执行命令<code>hexo new page &quot;categories&quot;</code>建立&#x2F;categories&#x2F;index.md,并修改内容为<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line"><span class="section">type: &quot;categories&quot;</span></span><br><span class="line"><span class="section">---</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20|%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%B8%80)%E5%AE%89%E8%A3%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="fengren123">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fengren123's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/02/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo%20%7C%20%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/hexo(%E4%B8%80)%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">hexo(一)安装</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2024-06-02 08:30:38 / Modified: 20:31:45" itemprop="dateCreated datePublished" datetime="2024-06-02T08:30:38+08:00">2024-06-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/" itemprop="url" rel="index"><span itemprop="name">工具篇</span></a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7%E7%AF%87/hexo-%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/" itemprop="url" rel="index"><span itemprop="name">hexo | 搭建静态博客</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>参考:<a target="_blank" rel="noopener" href="https://hexo.io/docs/index.html">hexo官方Documentation</a>&gt;  </p>
-<h1 id="1-安装Node-js"><a href="#1-安装Node-js" class="headerlink" title="1. 安装Node.js"></a>1. 安装Node.js</h1><p>从<a target="_blank" rel="noopener" href="https://github.com/nodesource/distributions">nodesource.github</a>安装,根据命令行操作即可</p>
-<h1 id="2-安装Git"><a href="#2-安装Git" class="headerlink" title="2. 安装Git"></a>2. 安装Git</h1><blockquote>
-<p>sudo apt install git-core  </p>
-</blockquote>
-<h1 id="3-安装hexo"><a href="#3-安装hexo" class="headerlink" title="3. 安装hexo"></a>3. 安装hexo</h1><ol>
-<li><blockquote>
-<p>npm install hexo</p>
-</blockquote>
-</li>
-<li><blockquote>
-<p>echo ‘PATH&#x3D;”$PATH:.&#x2F;node_modules&#x2F;.bin”‘ &gt;&gt; ~&#x2F;.profile<br>这一行的目的是将<code>hexo init &lt;工作文件夹&gt;</code>创建的&lt;工作文件夹&gt;的.bin下的内容(其中有hexo)添加为PATH,这样可以直接用<code>hexo</code>命令,而不用<code>npx hexo</code>.但是实际应用中,我发现好像不用这一行也可以直接用<code>hexo</code>命令</p>
-</blockquote>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://fengren123.github.io/2024/05/23/hello-world/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="fengren123">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fengren123's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/23/hello-world/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-05-23 19:34:30" itemprop="dateCreated datePublished" datetime="2024-05-23T19:34:30+08:00">2024-05-23</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 
@@ -1034,20 +1267,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
